@@ -1,0 +1,290 @@
+# Starship configuration
+{{- if .minimalPrompt }}
+# Minimal variant for servers/remote machines
+add_newline = false
+command_timeout = 1000
+format = """
+$directory\
+$git_branch\
+$git_status\
+$character
+"""
+{{- else }}
+# Full variant for development machines
+add_newline = false
+command_timeout = 3000
+format = """
+$conda\
+$directory\
+$git_branch\
+$git_status\
+{{- if .showCloudInfo }}
+$aws\
+$gcloud\
+$kubernetes\
+{{- end }}
+$lua\
+$nodejs\
+$python\
+$rust\
+$golang\
+$php\
+{{- if .showContainers }}
+$docker_context\
+{{- end }}
+\n$character
+"""
+{{- end }}
+
+{{- if not .minimalPrompt }}
+right_format = """
+{{- if .showTime }}
+$time\
+{{- end }}
+{{- if .showBattery }}
+$battery\
+{{- end }}
+"""
+{{- end }}
+
+[directory]
+{{- if .compactPath }}
+truncation_length = 2
+{{- else }}
+truncation_length = 3
+{{- end }}
+{{- if .useTokyoNightColors }}
+style = "fg:#ff9e64"
+{{- else if .useCatppuccinColors }}
+style = "fg:#89b4fa"
+{{- else }}
+style = "fg:blue"
+{{- end }}
+format = "[$path ]($style)"
+
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
+{{- if .personal }}
+"Projects" = " "
+"dotfiles" = " "
+{{- else }}
+"work" = " "
+"repos" = " "
+{{- end }}
+
+{{- if not .minimalPrompt }}
+[conda]
+format = '[\($environment\)]($style) '
+{{- if .useTokyoNightColors }}
+style = "fg:#bb9af7"
+{{- else if .useCatppuccinColors }}
+style = "fg:#cba6f7"
+{{- else }}
+style = "fg:purple"
+{{- end }}
+ignore_base = false
+
+{{- if .showCloudInfo }}
+[aws]
+format = 'on [$symbol($profile )(\($region\) )]($style)'
+{{- if .useTokyoNightColors }}
+style = 'fg:#e0af68'
+{{- else if .useCatppuccinColors }}
+style = 'fg:#f9e2af'
+{{- else }}
+style = 'fg:yellow'
+{{- end }}
+symbol = ' '
+
+[aws.region_aliases]
+us-east-1 = 'va'
+us-west-2 = 'or'
+eu-west-1 = 'ie'
+{{- if .workRegions }}
+us-east-2 = 'oh'
+ap-southeast-1 = 'sg'
+{{- end }}
+
+[gcloud]
+format = 'on [$symbol$account(@$domain)(\($project\))]($style) '
+symbol = '󱇶 '
+{{- if .useTokyoNightColors }}
+style = 'fg:#7dcfff'
+{{- else if .useCatppuccinColors }}
+style = 'fg:#89dceb'
+{{- else }}
+style = 'fg:cyan'
+{{- end }}
+
+[kubernetes]
+format = 'on [$symbol$context( \($namespace\))]($style) '
+{{- if .useTokyoNightColors }}
+style = 'fg:#7aa2f7'
+{{- else if .useCatppuccinColors }}
+style = 'fg:#89b4fa'
+{{- else }}
+style = 'fg:blue'
+{{- end }}
+symbol = '☸ '
+{{- end }}
+{{- end }}
+
+[git_branch]
+symbol = ""
+{{- if .useTokyoNightColors }}
+style = "fg:#ff9e64"
+{{- else if .useCatppuccinColors }}
+style = "fg:#fab387"
+{{- else }}
+style = "fg:yellow"
+{{- end }}
+format = '[ $symbol $branch ]($style)'
+
+[git_status]
+{{- if .useTokyoNightColors }}
+style = "fg:#ff9e64"
+{{- else if .useCatppuccinColors }}
+style = "fg:#fab387"
+{{- else }}
+style = "fg:yellow"
+{{- end }}
+format = '[($all_status$ahead_behind ) ]($style)'
+
+{{- if not .minimalPrompt }}
+[character]
+{{- if .useTokyoNightColors }}
+success_symbol = "[❯](bold fg:#9ece6a)"
+error_symbol = "[❯](bold fg:#f7768e)"
+{{- else if .useCatppuccinColors }}
+success_symbol = "[❯](bold fg:#a6e3a1)"
+error_symbol = "[❯](bold fg:#f38ba8)"
+{{- else }}
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"
+{{- end }}
+
+[bun]
+symbol = "󰳯"
+{{- if .useTokyoNightColors }}
+style = "fg:#9ece6a"
+{{- else if .useCatppuccinColors }}
+style = "fg:#a6e3a1"
+{{- else }}
+style = "fg:green"
+{{- end }}
+format = '[ $symbol ($version) ]($style)'
+
+[lua]
+format = '[ $version](bold $style) '
+{{- if .useTokyoNightColors }}
+style = "fg:#7aa2f7"
+{{- else if .useCatppuccinColors }}
+style = "fg:#89b4fa"
+{{- else }}
+style = "fg:blue"
+{{- end }}
+
+[nodejs]
+symbol = ""
+{{- if .useTokyoNightColors }}
+style = "fg:#9ece6a"
+{{- else if .useCatppuccinColors }}
+style = "fg:#a6e3a1"
+{{- else }}
+style = "fg:green"
+{{- end }}
+format = '[ $symbol ($version) ]($style)'
+
+[python]
+format = "[$symbol($version)]($style)"
+{{- if .useTokyoNightColors }}
+style = "fg:#9ece6a"
+{{- else if .useCatppuccinColors }}
+style = "fg:#a6e3a1"
+{{- else }}
+style = "fg:green"
+{{- end }}
+symbol = " "
+
+[rust]
+symbol = ""
+{{- if .useTokyoNightColors }}
+style = "fg:#f7768e"
+{{- else if .useCatppuccinColors }}
+style = "fg:#f38ba8"
+{{- else }}
+style = "fg:red"
+{{- end }}
+format = '[ $symbol ($version) ]($style)'
+
+[golang]
+symbol = ""
+{{- if .useTokyoNightColors }}
+style = "fg:#7dcfff"
+{{- else if .useCatppuccinColors }}
+style = "fg:#89dceb"
+{{- else }}
+style = "fg:blue"
+{{- end }}
+format = '[ $symbol ($version) ]($style)'
+
+[php]
+symbol = ""
+{{- if .useTokyoNightColors }}
+style = "fg:#ad8ee6"
+{{- else if .useCatppuccinColors }}
+style = "fg:#cba6f7"
+{{- else }}
+style = "fg:#212736"
+{{- end }}
+format = '[ $symbol ($version) ]($style)'
+
+{{- if .showContainers }}
+[docker_context]
+symbol = " "
+{{- if .useTokyoNightColors }}
+style = "fg:#7dcfff"
+{{- else if .useCatppuccinColors }}
+style = "fg:#89dceb"
+{{- else }}
+style = "fg:blue"
+{{- end }}
+format = '[ $symbol $context ]($style)'
+{{- end }}
+
+{{- if .showTime }}
+[time]
+disabled = false
+{{- if .show24Hour }}
+time_format = "%H:%M"
+{{- else }}
+time_format = "%R"
+{{- end }}
+{{- if .useTokyoNightColors }}
+style = "fg:#565f89"
+{{- else if .useCatppuccinColors }}
+style = "fg:#6c7086"
+{{- else }}
+style = "fg:comment"
+{{- end }}
+format = '[  $time ]($style)'
+{{- end }}
+
+{{- if .showBattery }}
+[battery]
+full_symbol = "🔋"
+charging_symbol = "🔌"
+discharging_symbol = "⚡"
+
+[[battery.display]]
+threshold = 10
+style = "bold red"
+
+[[battery.display]]
+threshold = 30
+style = "bold yellow"
+{{- end }}
+{{- end }}

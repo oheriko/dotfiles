@@ -1,0 +1,43 @@
+# Linux laptop-specific overrides
+data:
+  # === MACHINE DETECTION ===
+  is_laptop_hp: true
+  
+  # === LAPTOP-SPECIFIC FEATURES ===
+  # Enable battery indicator for laptop
+  showBattery: true
+  
+  # More compact layout for smaller screen
+  compactLayout: true
+  compactPath: true
+  
+  # === DEVELOPMENT FEATURES ===
+  # Enable work tools for development machine
+  workAliases: true
+  showCloudInfo: true
+  showContainers: true
+  
+  # Enhanced development environment
+  useGo: true
+  workEnvironment: true
+  
+  # === LINUX-SPECIFIC OVERRIDES ===
+  # Use GNOME Keyring for credentials
+  useGnomeKeyring: true
+  
+  # Linux-specific package manager setup
+  packageManager: "apt"
+  isUbuntu: true
+  
+  # === CUSTOM PATHS ===
+  customPaths:
+    - "{{ .chezmoi.homeDir }}/.cargo/bin"
+    - "{{ .chezmoi.homeDir }}/.local/bin"
+    - "/usr/local/bin"
+  
+  # === WORK ENVIRONMENT VARIABLES ===
+  workEnvVars:
+    - name: "LAPTOP_MODE"
+      value: "true"
+    - name: "DISPLAY_SCALE"
+      value: "1.25"

@@ -1,0 +1,108 @@
+[user]
+{{- if .personal }}
+	name = Erik Wright
+	email = github@oheriko.com
+{{- else }}
+	name = {{ .workName | default "Erik Wright" }}
+	email = {{ .workEmail }}
+{{- end }}
+	signingkey = ~/.ssh/id_ed25519_signing.pub
+
+[init]
+	defaultBranch = main
+
+{{- if eq .chezmoi.hostname "macbook-m1" }}
+# macOS specific
+[credential]
+	helper = osxkeychain
+[gpg]
+	format = ssh
+# {{- if .use1Password }}
+# 	ssh.program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+# {{- end }}
+[gpg "ssh"]
+	program = /usr/bin/ssh-keygen
+{{- else if eq .chezmoi.hostname "laptop-hp" }}
+# Linux development machine  
+[credential]
+{{- if .useGnomeKeyring }}
+	helper = /usr/share/git/credential/libsecret/git-credential-libsecret
+{{- else }}
+	helper = store --file ~/.config/git/.git-credentials
+{{- end }}
+[commit]
+	gpgsign = {{ .enableGpgSigning | default true }}
+[gpg]
+	format = ssh
+{{- else if eq .chezmoi.os "darwin" }}
+# Default macOS setup
+[credential]
+	helper = osxkeychain
+[gpg]
+	format = ssh
+{{- if .use1Password }}
+	ssh.program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+{{- end }}
+{{- else if eq .chezmoi.os "linux" }}
+# Default Linux setup
+[credential]
+{{- if .useGnomeKeyring }}
+	helper = /usr/share/git/credential/libsecret/git-credential-libsecret
+{{- else }}
+	helper = store --file ~/.config/git/.git-credentials
+{{- end }}
+[commit]
+	gpgsign = {{ .enableGpgSigning | default true }}
+[gpg]
+	format = ssh
+{{- end }}
+
+# Enhanced aliases for Lazygit workflow
+[alias]
+	s = status --short --branch
+	lg = log --oneline --graph --decorate --all -20
+	lga = log --oneline --graph --decorate --all
+	unstage = restore --staged
+	discard = restore
+	sw = switch
+	swc = switch -c
+	stash-staged = stash --staged
+	stash-keep-index = stash --keep-index
+	co = checkout
+	br = branch
+	ci = commit
+	st = status
+{{- if .includeAdvancedAliases }}
+	find-merge = "!sh -c 'commit=$0 && branch=${1:-HEAD} && (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2'"
+	show-merge = "!sh -c 'merge=$(git find-merge $0 $1) && [ -n \"$merge\" ] && git show $merge'"
+	pushf = push --force-with-lease
+	unstash = stash pop
+{{- end }}
+
+{{- if .enableDelta }}
+# Delta configuration for better diffs
+[core]
+	pager = delta
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+	light = {{ not .darkMode }}
+	side-by-side = {{ .deltaWideDiff | default false }}
+[merge]
+	conflictstyle = diff3
+[diff]
+	colorMoved = default
+{{- end }}
+
+{{- if .enablePullRebase }}
+# Always rebase on pull
+[pull]
+	rebase = true
+{{- end }}
+
+{{- if .enableAutoSetupRemote }}
+# Auto-setup remote tracking
+[push]
+	autoSetupRemote = true
+{{- end }}

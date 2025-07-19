@@ -1,0 +1,9 @@
+**/.cache/
+**/.tmp/
+**/cache/
+**/.zcompdump
+
+**/.envrc
+**/.direnv
+
+mcp.json

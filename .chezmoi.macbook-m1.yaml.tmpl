@@ -1,0 +1,46 @@
+# M1 MacBook-specific overrides
+{{- $username := .chezmoi.username -}}
+
+data:
+  # === MACHINE DETECTION ===
+  is_macbook_m1: true
+  
+  # === MACOS-SPECIFIC FEATURES ===
+  # Enable 1Password integration
+  use1Password: true
+  
+  # High DPI display settings
+  highDPI: true
+  fontSize: "18"
+  
+  # === DEVELOPMENT FEATURES ===
+  # Full development setup
+  workAliases: true
+  showCloudInfo: true
+  showContainers: true
+  includeAdvancedAliases: true
+  
+  # Enable Go development
+  useGo: true
+  
+  # Wide diff view on larger screen
+  deltaWideDiff: true
+  
+  # === MACOS-SPECIFIC PATHS ===
+  lmstudio_bin: "/Users/{{ $username }}/.lmstudio/bin"
+  
+  # === CUSTOM PATHS ===
+  customPaths:
+    - "{{ .chezmoi.homeDir }}/.cargo/bin"
+    - "/Users/{{ $username }}/.lmstudio/bin"
+    - "/opt/homebrew/bin"
+    - "/opt/homebrew/sbin"
+  
+  # === MACOS OPTIMIZATIONS ===
+  workEnvVars:
+    - name: "OBJC_DISABLE_INITIALIZE_FORK_SAFETY"
+      value: "YES"
+    - name: "HOMEBREW_PREFIX"
+      value: "/opt/homebrew"
+    - name: "MACOS_VERSION"
+      value: "m1"

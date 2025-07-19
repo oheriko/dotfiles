@@ -1,0 +1,65 @@
+# The syntax is "key = value". The whitespace around the
+# equals doesn't matter.
+# background = 282c34
+# foreground = ffffff
+
+# Comments start with a `#` and are only valid on their own line.
+# Blank lines are ignored!
+
+# # split
+keybind = ctrl+t>v=new_split:right
+keybind = ctrl+t>h=new_split:down
+keybind = ctrl+t>t=toggle_split_zoom
+keybind = ctrl+t>e=equalize_splits
+
+keybind = ctrl+t>z=close_surface
+
+keybind = ctrl+j=goto_split:bottom
+keybind = ctrl+k=goto_split:top
+keybind = ctrl+h=goto_split:left
+keybind = ctrl+l=goto_split:right
+
+# visor mode
+{{- if eq .chezmoi.os "darwin" }}
+keybind = global:cmd+grave_accent=toggle_quick_terminal
+{{- else }}
+keybind = global:ctrl+grave_accent=toggle_quick_terminal
+{{- end }}
+
+# Empty values reset the configuration to the default value
+# font-family = MonaspiceNe NF
+{{- if .personal }}
+font-family = Caskaydia Mono
+{{- else }}
+font-family = {{ .fontFamily | default "JetBrains Mono" }}
+{{- end }}
+{{- if .highDPI }}
+font-size = 18
+{{- else }}
+font-size = {{ .fontSize | default "16" }}
+{{- end }}
+font-feature = -calt
+font-feature = -liga
+font-feature = -dlig
+
+{{- if .darkMode }}
+theme = tokyonight_night
+{{- else }}
+theme = tokyonight_day
+{{- end }}
+# theme = catppuccin-frappe
+
+cursor-style = block
+# cursor-style-blink = false
+# shell-integration = zsh
+shell-integration-features = no-cursor
+
+{{- if .compactLayout }}
+window-padding-x = 8
+window-padding-y = 6
+{{- else }}
+window-padding-x = 12
+window-padding-y = 8
+{{- end }}
+
+# working-directory = home

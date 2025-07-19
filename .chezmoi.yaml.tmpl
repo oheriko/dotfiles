@@ -1,0 +1,144 @@
+{{- $hostname := .chezmoi.hostname -}}
+{{- $username := .chezmoi.username -}}
+{{- $osid := .chezmoi.os -}}
+{{- $is_macos := eq .chezmoi.os "darwin" -}}
+{{- $is_linux := eq .chezmoi.os "linux" -}}
+{{- $is_nixos := and $is_linux (stat "/etc/NIXOS") -}}
+
+# Chezmoi settings
+sourceDir: "{{ .chezmoi.homeDir }}/.local/share/chezmoi"
+edit:
+  command: "nvim"
+
+data:
+  # === CORE IDENTITY ===
+  personal: true
+  darkMode: true
+  
+  # Work identity (only used when personal = false)
+  workName: "Erik Wright"
+  workEmail: "erik.wright@company.com"
+  
+  # === PLATFORM DETECTION ===
+  is_macos: {{ $is_macos }}
+  is_linux: {{ $is_linux }}
+  is_nixos: {{ $is_nixos }}
+  
+  # === GHOSTTY CONFIG ===
+  fontFamily: "Caskaydia Mono"
+  fontSize: "16"
+  highDPI: false
+  compactLayout: false
+  
+  # === GIT CONFIG ===
+  use1Password: {{ $is_macos }}
+  includeAdvancedAliases: true
+  enableDelta: true
+  deltaWideDiff: false
+  enablePullRebase: true
+  enableAutoSetupRemote: true
+  useGnomeKeyring: {{ and $is_linux (not $is_nixos) }}
+  enableGpgSigning: true
+  
+  # === STARSHIP CONFIG ===
+  minimalPrompt: false
+  compactPath: false
+  
+  # Theme colors
+  useTokyoNightColors: true
+  useCatppuccinColors: false
+  
+  # Starship features
+  showCloudInfo: false
+  showContainers: false
+  showTime: true
+  showBattery: false
+  show24Hour: true
+  workRegions: false
+  
+  # === ZSH CONFIG ===
+  # Core tools
+  useGhostty: true
+  useZoxide: true
+  useBat: true
+  useChezmoi: true
+  useStarship: true
+  useDirenv: true
+  useFzf: true
+  useYazi: true
+  useAutosuggestions: true
+  useViMode: true
+  
+  # Platform package manager
+  {{- if $is_macos }}
+  packageManager: "brew"
+  {{- else if $is_nixos }}
+  packageManager: "nix"
+  isNixOS: true
+  isArch: false
+  isFedora: false
+  {{- else }}
+  packageManager: "apt"
+  isUbuntu: true
+  isArch: false
+  isFedora: false
+  {{- end }}
+  useLinuxbrew: false
+  
+  # Features
+  workAliases: false
+  personalAliases: true
+  largeHistory: true
+  enhancedHistory: true
+  enhancedCompletion: true
+  enhancedShellOpts: true
+  useCustomCompletions: true
+  setGitAliases: false
+  
+  # Additional zsh features
+  enablePrediction: false
+  useOhMyZsh: false
+  
+  # Development tools
+  developmentTools: true
+  useRust: true
+  useNode: true
+  usePython: true
+  useGo: false
+  
+  # Environment
+  editor: "nvim"
+  location: "Milan"
+  useBitwardenSSH: false
+  workEnvironment: false
+  
+  # === PLATFORM-SPECIFIC PATHS ===
+  {{- if $is_macos }}
+  home_bin: "/opt/homebrew/bin"
+  cargo_bin: "/Users/{{ $username }}/.cargo/bin"
+  {{- else }}
+  home_bin: "{{ .chezmoi.homeDir }}/.local/bin"
+  cargo_bin: "{{ .chezmoi.homeDir }}/.cargo/bin"
+  {{- end }}
+  
+  # Base custom paths
+  customPaths:
+    - "{{ .chezmoi.homeDir }}/.cargo/bin"
+  
+  # === PACKAGE MANAGER COMMANDS ===
+  {{- if $is_macos }}
+  pkg_manager: "brew"
+  pkg_install: "brew install"
+  pkg_search: "brew search"
+  pkg_update: "brew update && brew upgrade"
+  {{- else if $is_nixos }}
+  pkg_manager: "nix"
+  pkg_install: "nix-env -iA"
+  pkg_search: "nix search"
+  pkg_update: "sudo nixos-rebuild switch"
+  {{- else }}
+  pkg_manager: "apt"
+  pkg_install: "sudo apt install"
+  pkg_search: "apt search"
+  pkg_update: "sudo apt update && sudo apt upgrade"
+  {{- end }}
