@@ -2,9 +2,17 @@
 {
   inputs,
   pkgs,
+  nixpkgs-stable,
   lib,
   ...
 }:
+let
+  # Create stable packages set for your system
+  stable = import nixpkgs-stable {
+    system = pkgs.system;
+    config = pkgs.config;
+  };
+in
 {
   home.packages =
     with pkgs;
@@ -35,6 +43,7 @@
       # Security
       age
       age-plugin-yubikey
+      # stable.bitwarden-cli
       sops
       yubikey-manager
 

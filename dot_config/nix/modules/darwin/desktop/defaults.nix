@@ -58,12 +58,12 @@
       TrackpadThreeFingerTapGesture = 0;
     };
 
-    universalaccess = {
-      closeViewScrollWheelToggle = false;
-      closeViewZoomFollowsFocus = false;
-      reduceTransparency = false;
-      mouseDriverCursorSize = 1.0;
-    };
+    # universalaccess = {
+    #   closeViewScrollWheelToggle = false;
+    #   closeViewZoomFollowsFocus = false;
+    #   reduceTransparency = false;
+    #   mouseDriverCursorSize = 1.0;
+    # };
 
     SoftwareUpdate = {
       AutomaticallyInstallMacOSUpdates = true;

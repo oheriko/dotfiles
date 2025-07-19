@@ -1,4 +1,4 @@
-# flake.nix - Fixed version
+# flake.nix
 {
   description = "Erik's NixOS and Darwin configurations";
 
@@ -110,8 +110,6 @@
             nativeBuildInputs = with pkgs; [
               git
               nixfmt-rfc-style
-              deadnix
-              statix
             ];
           };
         }
