@@ -6,8 +6,12 @@ data:
   is_macbook_m1: true
   
   # === MACOS-SPECIFIC FEATURES ===
-  # Enable 1Password integration
-  use1Password: true
+  # Disable 1Password integration (not installed)
+  use1Password: false
+  
+  # Use nix-darwin for system management
+  useNixDarwin: true
+  useFlakes: true
   
   # High DPI display settings
   highDPI: true
@@ -44,3 +48,5 @@ data:
       value: "/opt/homebrew"
     - name: "MACOS_VERSION"
       value: "m1"
+    - name: "NIX_DARWIN_CONFIG"
+      value: "{{ .chezmoi.homeDir }}/.config/nix-darwin"
