@@ -8,13 +8,11 @@
       autoUpdate = true;
       upgrade = true;
     };
-
     taps = [ ];
-
     brews = [
       "coreutils"
+      "zsh-autosuggestions"
     ];
-
     casks = [
       "1password"
       "beekeeper-studio"
@@ -32,7 +30,6 @@
       "raycast"
       "yubico-authenticator"
     ];
-
     masApps = {
       slack = 803453959;
     };

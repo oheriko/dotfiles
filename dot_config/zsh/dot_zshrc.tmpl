@@ -230,11 +230,7 @@ eval "$(zoxide init zsh)"
 
 {{- if .useAutosuggestions }}
 # Zsh autosuggestions
-{{- if .useOhMyZsh }}
-source ~/.oh-my-zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-{{- else }}
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-{{- end }}
+source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 {{- end }}
 
 {{- if .useYazi }}

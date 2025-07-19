@@ -67,13 +67,6 @@ format = "[$path ]($style)"
 "Downloads" = " "
 "Music" = " "
 "Pictures" = " "
-{{- if .personal }}
-"Projects" = " "
-"dotfiles" = " "
-{{- else }}
-"work" = " "
-"repos" = " "
-{{- end }}
 
 {{- if not .minimalPrompt }}
 [conda]
@@ -87,7 +80,6 @@ style = "fg:purple"
 {{- end }}
 ignore_base = false
 
-{{- if .showCloudInfo }}
 [aws]
 format = 'on [$symbol($profile )(\($region\) )]($style)'
 {{- if .useTokyoNightColors }}
@@ -101,13 +93,14 @@ symbol = ' '
 
 [aws.region_aliases]
 us-east-1 = 'va'
+{{- if .workRegions }}
 us-west-2 = 'or'
 eu-west-1 = 'ie'
-{{- if .workRegions }}
 us-east-2 = 'oh'
 ap-southeast-1 = 'sg'
 {{- end }}
 
+{{- if .showCloudInfo }}
 [gcloud]
 format = 'on [$symbol$account(@$domain)(\($project\))]($style) '
 symbol = '󱇶 '
