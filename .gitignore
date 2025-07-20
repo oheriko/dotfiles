@@ -1,4 +1,4 @@
 dot_direnv/
-dot_envrc
+dot_envrc*
 
 mcp.json
