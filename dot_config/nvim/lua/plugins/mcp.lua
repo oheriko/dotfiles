@@ -5,10 +5,13 @@ return {
       "nvim-lua/plenary.nvim",
     },
     build = "bundled_build.lua",
-    version = "5.*",
+    version = "6.*",
     opts = {
       use_bundled_binary = true,
-      config = vim.uv.cwd() .. "/mcp.json",
+      config = vim.fn.expand("~/.config/mcphub/servers.json"),
+      workspace = {
+        look_for = { ".mcp/servers.json", ".vscode/mcp.json", ".cursor/mcp.json" },
+      },
       on_ready = function() vim.notify("MCP Hub is online!") end,
       log = {
         level = vim.log.levels.WARN,
@@ -30,7 +33,7 @@ return {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
     },
-    version = "14.*",
+    version = "17.*",
     keys = {
       { "<leader>cc", "<cmd>CodeCompanionChat toggle<cr>", desc = "Code Companion Chat" },
       { "<leader>ca", "<cmd>CodeCompanionActions<cr>", desc = "Code Companion Actions" },
