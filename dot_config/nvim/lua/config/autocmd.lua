@@ -1,4 +1,3 @@
-
 vim.api.nvim_create_autocmd("TextYankPost", {
   group = vim.api.nvim_create_augroup("highlight_yank", {}),
   desc = "Hightlight selection on yank",
@@ -7,7 +6,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 vim.api.nvim_create_autocmd("BufEnter", {
-  group = vim.api.nvim_create_augroup("FormatOptions", { clear = true }),
+  group = vim.api.nvim_create_augroup("format_options", { clear = true }),
   pattern = "*",
   callback = function() vim.opt.formatoptions = "cqrnj" end,
 })
@@ -29,23 +28,20 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   callback = function() vim.opt_local.conceallevel = 0 end,
 })
 
-
 vim.api.nvim_create_autocmd("LspAttach", {
-  callback = function(args)
+  callback = function()
+    -- vim.diagnostic.config({
+    --   virtual_lines = {
+    --     only_current_line = false,
+    --     highlight_whole_line = true,
+    --     prefix = "▎",
+    --     spacing = 4,
+    --   },
+    -- })
+    --
+    vim.diagnostic.config({ virtual_text = false })
 
-
-vim.diagnostic.config({
-  virtual_lines = {
-    only_current_line = false,
-    highlight_whole_line = true,
-    prefix = "▎",
-    spacing = 4,
-  },
-})
-
-vim.diagnostic.config({ virtual_text = false })
-
-   vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Go to Declaration" })
+    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Go to Declaration" })
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to Definition" })
     vim.keymap.set("n", "gk", vim.lsp.buf.hover, { desc = "LSP Hover" })
     vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "Go to Implementation" })
@@ -81,7 +77,5 @@ vim.diagnostic.config({ virtual_text = false })
     -- "gri" is mapped in Normal mode to vim.lsp.buf.implementation()
     -- "gO" is mapped in Normal mode to vim.lsp.buf.document_symbol()
     -- CTRL-S is mapped in Insert mode to vim.lsp.buf.signature_help()
-
- 
   end,
 })

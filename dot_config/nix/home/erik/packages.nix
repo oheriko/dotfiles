@@ -21,6 +21,7 @@ in
       pkgs.direnv
       pkgs.git
       pkgs.lazygit
+      pkgs.tree-sitter
 
       # CLI utilities
       pkgs.bat
@@ -102,7 +103,7 @@ in
       # Darwin-specific packages
       pkgs.bruno
       pkgs.bruno-cli
-      # pkgs.bws
+      pkgs.bws
       pkgs.nixfmt-rfc-style
       pkgs.openssh
       # pkgs.tig

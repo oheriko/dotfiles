@@ -5,7 +5,7 @@ return {
   opts = {
     formatters_by_ft = {
       astro = { "biome-check", "biome", "prettierd", "prettier" },
-      css = { "biome-check", "biome", "tailwindcss" },
+      css = { "biome-check", "biome" },
       go = { "gofmt" },
       lua = { "stylua" },
       javascript = { "biome-check", "biome", "prettierd", "prettier", stop_after_first = true },

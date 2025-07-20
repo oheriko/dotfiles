@@ -15,6 +15,7 @@ vim.lsp.enable({
   "luals",
   "ruff",
   "rust-analyzer",
+  "tailwindcss",
   "tsserver",
   "ty",
 })

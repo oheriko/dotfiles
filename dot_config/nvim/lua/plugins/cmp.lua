@@ -31,6 +31,14 @@ return {
         -- per_filetype = {
         --   codecompanion = { "codecompanion" },
         -- },
+        providers = {
+          lsp = {
+            name = "LSP",
+            module = "blink.cmp.sources.lsp",
+            async = true,
+            score_offset = 5,
+          },
+        },
       },
       -- fuzzy = { implementation = "prefer_rust_with_warning" },
       signature = { enabled = true },

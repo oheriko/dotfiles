@@ -1,29 +1,45 @@
 return {
   {
+    "echasnovski/mini.diff",
+    config = function()
+      local diff = require("mini.diff")
+      diff.setup({
+        source = diff.gen_source.none(),
+      })
+    end,
+  },
+  {
+    "HakonHarnes/img-clip.nvim",
+    opts = {
+      filetypes = {
+        codecompanion = {
+          prompt_for_file_name = false,
+          template = "[Image]($FILE_PATH)",
+          use_absolute_path = true,
+        },
+      },
+    },
+  },
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
+    ft = { "markdown", "codecompanion" },
+    opts = {
+      completions = {
+        lsp = { enabled = true },
+        blink = { enabled = true },
+      },
+    },
+  },
+  {
     "ravitemer/mcphub.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
-    build = "bundled_build.lua",
-    version = "6.*",
     opts = {
-      use_bundled_binary = true,
-      config = vim.fn.expand("~/.config/mcphub/servers.json"),
       workspace = {
+        enabled = true,
         look_for = { ".mcp/servers.json", ".vscode/mcp.json", ".cursor/mcp.json" },
-      },
-      on_ready = function() vim.notify("MCP Hub is online!") end,
-      log = {
-        level = vim.log.levels.WARN,
-        to_file = true,
-      },
-      extensions = {
-        codecompanion = {
-          -- Show the mcp tool result in the chat buffer
-          show_result_in_chat = true,
-          make_vars = true, -- make chat #variables from MCP server resources
-          make_slash_commands = true, -- make /slash_commands from MCP server prompts
-        },
       },
     },
   },
@@ -32,67 +48,54 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
+      "ravitemer/mcphub.nvim",
+      "ravitemer/codecompanion-history.nvim",
     },
-    version = "17.*",
     keys = {
-      { "<leader>cc", "<cmd>CodeCompanionChat toggle<cr>", desc = "Code Companion Chat" },
-      { "<leader>ca", "<cmd>CodeCompanionActions<cr>", desc = "Code Companion Actions" },
+      { "<leader>cc", "<cmd>CodeCompanionChat Toggle<cr>", { desc = "Code Companion Chat" } },
+      { "<leader>ca", "<cmd>CodeCompanionActions<cr>", { desc = "Code Companion Actions" } },
     },
     opts = {
-      adapters = {
-        gemini = function()
-          return require("codecompanion.adapters").extend("gemini", {
-            schema = {
-              model = {
-                default = "gemini-2.5-pro-preview-03-25",
-              },
-            },
-          })
-        end,
-      },
       strategies = {
         chat = {
-          adapter = "gemini",
-          tools = {
-            ["mcp"] = {
-              callback = function() return require("mcphub.extensions.codecompanion") end,
-              description = "Call tools and resources from the MCP Servers",
-              opts = {
-                requires_approval = true,
-              },
-            },
+          adapter = {
+            name = "gemini",
+            model = "gemini-2.5-pro",
           },
+          opts = { completion_provider = "blink" },
         },
         inline = {
-          adapter = "gemini",
-          tools = {
-            ["mcp"] = {
-              callback = function() return require("mcphub.extensions.codecompanion") end,
-              description = "Call tools and resources from the MCP Servers",
-              opts = {
-                requires_approval = true,
-              },
-            },
+          adapter = {
+            name = "gemini",
+            model = "gemini-2.5-pro",
           },
-        },
-        cmd = {
-          adapter = "gemini",
-          tools = {
-            ["mcp"] = {
-              callback = function() return require("mcphub.extensions.codecompanion") end,
-              description = "Call tools and resources from the MCP Servers",
-              opts = {
-                requires_approval = true,
-              },
-            },
-          },
+          opts = { completion_provider = "blink" },
         },
       },
       display = {
-        chat = {
-          show_settings = true,
+        chat = { show_settings = true },
+      },
+      extensions = {
+        history = {
+          enabled = true,
+          opts = {},
+        },
+        mcphub = {
+          callback = "mcphub.extensions.codecompanion",
+          opts = {
+            -- Create tools like @server and @server__tool from MCP servers
+            make_tools = true,
+            show_server_tools_in_chat = true,
+            show_result_in_chat = true,
+            -- Create #variables from MCP resources
+            make_vars = true,
+            -- Create /slash commands from MCP prompts
+            make_slash_commands = true,
+          },
         },
       },
     },
+    -- Expand 'cc' into 'CodeCompanion' in the command line
+    -- vim.cmd([[cabbrev cc CodeCompanion]])
   },
 }
