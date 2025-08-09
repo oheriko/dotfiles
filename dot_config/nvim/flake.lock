@@ -7,11 +7,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1753004349,
-        "narHash": "sha256-wGLXveayTY4voIFKuOgMDrc+oZYu+OeohAXKbLmkzKE=",
+        "lastModified": 1753048234,
+        "narHash": "sha256-bMv7UuY5qc1InrcZa0r+npjBq+jB3qcc91tXiVKT/8U=",
         "owner": "oheriko",
         "repo": "flakes",
-        "rev": "220443d98570fa51959d65d33b18720fe7016244",
+        "rev": "be6c2fa6353487fe234f54fefd9ac2a91b0046e9",
         "type": "github"
       },
       "original": {
@@ -48,30 +48,30 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1753029274,
-        "narHash": "sha256-WwxFTg8wphvIC7jDqDqyQBtKvn3Xr0ZRptDjwkFNx78=",
+        "lastModified": 1753029897,
+        "narHash": "sha256-CzDZ6l+JEB8msNCvscxKPz9hkNC7EFqS1XxxoGrnvwk=",
         "owner": "ravitemer",
-        "repo": "mcp-hub",
-        "rev": "bdbd7e47dbde52f95bd4e21d6b4de64f918e57dd",
+        "repo": "mcphub.nvim",
+        "rev": "c3bfc56a115efcac63b50e1a6cd345777f3516f6",
         "type": "github"
       },
       "original": {
         "owner": "ravitemer",
-        "repo": "mcp-hub",
+        "repo": "mcphub.nvim",
         "type": "github"
       }
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1743689281,
-        "narHash": "sha256-y7Hg5lwWhEOgflEHRfzSH96BOt26LaYfrYWzZ+VoVdg=",
-        "owner": "NixOS",
+        "lastModified": 1745377448,
+        "narHash": "sha256-jhZDfXVKdD7TSEGgzFJQvEEZ2K65UMiqW5YJ2aIqxMA=",
+        "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "2bfc080955153be0be56724be6fa5477b4eefabb",
+        "rev": "507b63021ada5fee621b6ca371c4fca9ca46f52c",
         "type": "github"
       },
       "original": {
-        "owner": "NixOS",
+        "owner": "nixos",
         "ref": "nixpkgs-unstable",
         "repo": "nixpkgs",
         "type": "github"

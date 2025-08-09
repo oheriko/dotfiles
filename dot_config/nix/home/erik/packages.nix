@@ -74,7 +74,7 @@ in
       # Linux-specific packages
       pkgs.biome
       pkgs.bitwarden-desktop
-      pkgs.eekeeper-studio
+      pkgs.beekeeper-studio
       pkgs.lang
       pkgs.cloudflared
       pkgs.cryptomator

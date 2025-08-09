@@ -1,4 +1,3 @@
-
 vim.g.mapleader = " "
 vim.g.augment_workspace_folders = { vim.uv.cwd() }
 vim.g.loaded_node_provider = 0

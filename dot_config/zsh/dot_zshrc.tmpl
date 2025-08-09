@@ -249,21 +249,22 @@ function f() {
 {{- end }}
 
 # Environment variables
+export XDG_CONFIG_HOME="$HOME/.config"
+export EDITOR={{ .editor | default "nvim" }}
+export DIRENV_WARN_TIMEOUT=1000s
+
 {{- if .useViMode }}
 export ZVM_CURSOR_STYLE_ENABLED=false
 {{- end }}
 {{- if .useAutosuggestions }}
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#666666"
 {{- end }}
-export EDITOR={{ .editor | default "nvim" }}
 {{- if .useDirenv }}
 export DIRENV_SKIP_TIMEOUT=TRUE
 {{- end }}
 {{- if .useStarship }}
 export STARSHIP_CONFIG=~/.config/starship/config.toml
 {{- end }}
-export XDG_CONFIG_HOME="$HOME/.config"
-
 {{- if .developmentTools }}
 # Development environment
 {{- if .useRust }}

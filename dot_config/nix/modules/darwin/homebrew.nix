@@ -3,21 +3,20 @@
 {
   homebrew = {
     enable = true;
-    onActivation = {
-      cleanup = "zap";
-      autoUpdate = true;
-      upgrade = true;
-    };
+    # onActivation = {
+    #   cleanup = "zap";
+    #   autoUpdate = true;
+    #   upgrade = true;
+    # };
     taps = [ ];
     brews = [
       "coreutils"
       "zsh-autosuggestions"
     ];
     casks = [
-      "1password"
+      # "1password"
       "beekeeper-studio"
       "bitwarden"
-      "chromium"
       "docker"
       "getoutline"
       "ghostty"
@@ -28,6 +27,7 @@
       "notion"
       "ollama"
       "raycast"
+      "ungoogled-chromium"
       "yubico-authenticator"
     ];
     masApps = {
