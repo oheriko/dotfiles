@@ -9,7 +9,12 @@
     neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
   };
   outputs =
-    { nixpkgs, home-manager, neovim-nightly, ... }@inputs:
+    {
+      nixpkgs,
+      home-manager,
+      neovim-nightly,
+      ...
+    }@inputs:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -25,12 +30,14 @@
 
       devShells.${system}.default = pkgs.mkShell {
         buildInputs = [
+          pkgs.biome
           pkgs.bun
           pkgs.lua
           pkgs.lua-language-server
           pkgs.nixfmt-rfc-style
           pkgs.nodejs_24
           pkgs.stylua
+          pkgs.typescript-language-server
         ];
 
         shellHook = ''
