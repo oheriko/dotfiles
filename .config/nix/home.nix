@@ -1,4 +1,8 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  ...
+}:
 
 {
   home.username = "erik";
@@ -18,6 +22,12 @@
     pkgs.lazygit
     pkgs.neovim
     pkgs.nix
+    (pkgs.ollama.override {
+      acceleration = "cuda";
+    })
+    pkgs.podman
+    pkgs.podman-tui
+    pkgs.podman-compose
     pkgs.ripgrep
     pkgs.starship
     pkgs.tree-sitter
@@ -26,6 +36,7 @@
     pkgs.yq
     pkgs.zoxide
   ];
+
   programs = {
     # bash.enable = true;
     direnv = {
@@ -36,4 +47,3 @@
     home-manager.enable = true;
   };
 }
-

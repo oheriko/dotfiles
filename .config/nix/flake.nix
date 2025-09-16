@@ -20,6 +20,22 @@
       pkgs = import nixpkgs {
         inherit system;
         overlays = [ neovim-nightly.overlays.default ];
+        config.allowUnfreePredicate =
+          pkg:
+          builtins.elem (nixpkgs.lib.getName pkg) [
+            "cuda_cudart"
+            "cuda_cccl"
+            "cuda_cuobjdump"
+            "cuda_gdb"
+            "cuda_nvcc"
+            "cuda_nvdisasm"
+            "cuda_nvprune"
+            "libcublas"
+            "libcufft"
+            "libcurand"
+            "libcusolver"
+            "libcusparse"
+          ];
       };
     in
     {
@@ -32,16 +48,19 @@
         buildInputs = [
           pkgs.biome
           pkgs.bun
+          pkgs.gcc
           pkgs.lua
           pkgs.lua-language-server
           pkgs.nixfmt-rfc-style
           pkgs.nodejs_24
+          pkgs.dive
           pkgs.stylua
           pkgs.typescript-language-server
+          pkgs.yamlfmt
         ];
 
         shellHook = ''
-          echo "Base home environment loaded with Node.js $(node --version)"
+          echo "Base home environment loaded"
         '';
       };
     };

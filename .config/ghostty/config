@@ -57,3 +57,20 @@ theme = tokyonight_night
 
 window-padding-x = 8
 window-padding-y = 4
+
+# Original settings
+
+keybind = ctrl+g>v=new_split:right
+keybind = ctrl+g>h=new_split:down
+keybind = ctrl+g>\=toggle_split_zoom
+keybind = ctrl+g>e=equalize_splits
+
+keybind = ctrl+g>z=close_surface
+
+keybind = super+j=goto_split:bottom
+keybind = super+k=goto_split:top
+keybind = super+h=goto_split:left
+keybind = super+l=goto_split:right
+
+# visor mode
+keybind = global:cmd+grave_accent=toggle_quick_terminal
