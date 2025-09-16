@@ -1,0 +1,6 @@
+require("config.globals")
+require("config.options")
+require("config.packs")
+require("config.autocmds")
+-- require("config.lsp")
+-- require("config.keymaps")

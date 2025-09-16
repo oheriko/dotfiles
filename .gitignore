@@ -1,0 +1,16 @@
+*
+!.gitignore
+!.config/
+.config/*
+!.config/ghostty
+!.config/ghostty/**
+!.config/git
+!.config/git/**
+!.config/nix
+!.config/nix/**
+!.config/nvim
+!.config/nvim/**
+!.config/starship
+!.config/starship/**
+!.config/yazi
+!.config/yazi/**

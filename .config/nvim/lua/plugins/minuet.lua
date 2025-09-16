@@ -1,0 +1,127 @@
+-- local minuet = require("minuet")
+--
+-- local gemini_key = os.getenv("GEMINI_API_KEY")
+-- -- local claude_key = os.getenv("ANTHROPIC_API_KEY")
+--
+-- -- if not gemini_key and not claude_key then
+-- --   return
+-- -- end
+--
+-- if not gemini_key then
+--   return
+-- end
+--
+-- minuet.setup({
+--   -- provider = gemini_key and "gemini" or "claude",
+--   -- provider_options = {
+--   --   gemini = gemini_key and {
+--   --     model = "gemini-2.0-flash",
+--   --     api_key = gemini_key,
+--   --   } or nil,
+--   --   claude = claude_key and {
+--   --     model = "claude-3-5-haiku-20241022",
+--   --     api_key = claude_key,
+--   --     max_tokens = 512,
+--   --     stream = true,
+--   --   } or nil,
+--   -- },
+--   provider = "gemini",
+--   provider_options = {
+--     gemini = {
+--       model = "gemini-2.0-flash",
+--       api_key = os.getenv("GEMINI_API_KEY"),
+--     },
+--   },
+--
+--   presets = {
+--     gemini = { provider = "gemini" },
+--     claude = { provider = "claude" },
+--     auto = {
+--       virtualtext = {
+--         auto_trigger_ft = {
+--           "lua",
+--           "python",
+--           "javascript",
+--           "typescript",
+--           "javascriptreact",
+--           "typescriptreact",
+--           "rust",
+--           "go",
+--           "cpp",
+--           "c",
+--           "java",
+--           "json",
+--           "jsonc",
+--           "yaml",
+--           "toml",
+--           "html",
+--           "css",
+--           "markdown",
+--         },
+--       },
+--     },
+--     manual = {
+--       virtualtext = {
+--         auto_trigger_ft = {},
+--       },
+--     },
+--   },
+--   virtualtext = {
+--     auto_trigger_ft = {
+--       "lua",
+--       "python",
+--       "javascript",
+--       "typescript",
+--       "javascriptreact",
+--       "typescriptreact",
+--       "rust",
+--       "go",
+--       "cpp",
+--       "c",
+--       "java",
+--       "json",
+--       "jsonc",
+--       "yaml",
+--       "toml",
+--       "html",
+--       "css",
+--       "markdown",
+--     },
+--     keymap = {
+--       accept = "<a-A>",
+--       accept_line = "<a-a>",
+--       accept_n_lines = "<a-z>",
+--       prev = "<a-[>",
+--       next = "<a-]>",
+--       dismiss = "<a-e>",
+--     },
+--   },
+-- })
+--
+-- local is_auto_mode = true
+--
+-- local function map(mode, lhs, rhs, desc) vim.keymap.set(mode, lhs, rhs, { desc = desc, silent = true }) end
+--
+-- map("n", "<leader>ap", function()
+--   local providers = { "gemini", "claude" }
+--   vim.ui.select(providers, {
+--     prompt = "Select AI Provider:",
+--   }, function(choice)
+--     if choice then
+--       vim.cmd("Minuet change_preset " .. choice)
+--       vim.notify("Switched to: " .. choice, vim.log.levels.INFO, { title = "Minuet" })
+--     end
+--   end)
+-- end, "Switch AI Provider")
+--
+-- map("n", "<leader>at", function()
+--   if is_auto_mode then
+--     vim.cmd("Minuet change_preset manual")
+--     is_auto_mode = false
+--     vim.notify("Manual mode: Use Alt+y to trigger", vim.log.levels.INFO, { title = "Minuet" })
+--   else
+--     vim.cmd("Minuet change_preset auto")
+--     is_auto_mode = true
+--     vim.notify("Auto mode: Ghost text enabled", vim.log.levels.INFO, { title = "Minuet" })
+--   end
+-- end, "Toggle Auto/Manual AI Mode")

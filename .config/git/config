@@ -1,0 +1,27 @@
+[user]
+    name = "Erik Wright"
+    email = "yo@oheriko.com"
+
+[init]
+    defaultBranch = main
+
+[alias]
+    br = branch
+    brs = "for-each-ref --sort=-committerdate --format=%(refname:short) refs/remotes/"
+    ci = commit
+    co = checkout
+    l = "log --all --graph --decorate --oneline"
+    st = status
+
+[gpg]
+    format = ssh
+
+[gpg "ssh"]
+    program = /usr/bin/ssh-keygen
+
+[pull]
+    rebase = true
+
+[push]
+    autoSetupRemote = true
+
