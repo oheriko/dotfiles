@@ -19,11 +19,11 @@ vim.pack.add({
     src = "https://github.com/nvim-treesitter/nvim-treesitter",
     version = "main",
   },
-  {
-    name = "luasnip",
-    src = "https://github.com/L3MON4D3/LuaSnip",
-    version = "master",
-  },
+  -- {
+  --   name = "luasnip",
+  --   src = "https://github.com/L3MON4D3/LuaSnip",
+  --   version = "master",
+  -- },
   {
     name = "lualine",
     src = "https://github.com/nvim-lualine/lualine.nvim",
@@ -50,11 +50,11 @@ vim.pack.add({
     src = "https://github.com/meanderingprogrammer/render-markdown.nvim",
     version = "main",
   },
-  {
-    name = "diagnostic",
-    src = "https://github.com/rachartier/tiny-inline-diagnostic.nvim",
-    version = "main",
-  },
+  -- {
+  --   name = "diagnostic",
+  --   src = "https://github.com/rachartier/tiny-inline-diagnostic.nvim",
+  --   version = "main",
+  -- },
   {
     name = "fzf",
     src = "https://github.com/ibhagwan/fzf-lua",
@@ -75,14 +75,14 @@ vim.pack.add({
   -- 	src = "https://github.com/rafamadriz/friendly-snippets",
   -- 	version = "main",
   -- },
-  {
-    name = "blink",
-    src = "https://github.com/saghen/blink.cmp",
-    version = "v1.6.0",
-  },
-  {
-    name = "minuet",
-    src = "https://github.com/milanglacier/minuet-ai.nvim",
-    version = "main",
-  },
+  -- {
+  --   name = "blink",
+  --   src = "https://github.com/saghen/blink.cmp",
+  --   version = "v1.6.0",
+  -- },
+  -- {
+  --   name = "minuet",
+  --   src = "https://github.com/milanglacier/minuet-ai.nvim",
+  --   version = "main",
+  -- },
 })

@@ -60,7 +60,7 @@
         ];
 
         shellHook = ''
-          echo "Base home environment loaded"
+          export LD_LIBRARY_PATH="$(dirname $(${pkgs.gcc}/bin/gcc --print-file-name=libstdc++.so.6)):$LD_LIBRARY_PATH"
         '';
       };
     };

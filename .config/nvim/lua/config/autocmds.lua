@@ -15,13 +15,6 @@ autocmd("FileType", {
   callback = function() vim.opt_local.formatoptions:remove({ "r", "o" }) end,
 })
 
-autocmd("FileType", {
-  group = filetype,
-  pattern = { "qf", "help", "man", "lspinfo", "spectre_panel" },
-  desc = "Close with q",
-  callback = function() vim.keymap.set("n", "q", "<cmd>close<CR>", { buffer = true, silent = true }) end,
-})
-
 autocmd("BufEnter", {
   group = format,
   callback = function() vim.opt.formatoptions = "cqrnj" end,
@@ -39,6 +32,7 @@ autocmd("BufWritePre", {
 
 autocmd({ "BufWritePre" }, {
   group = format,
+  desc = "Allow Neovim to create new directories",
   callback = function(event)
     if event.match:match("^%w%w+:[\\/][\\/]") then
       return
@@ -56,11 +50,17 @@ autocmd("TextYankPost", {
 
 autocmd("LspAttach", {
   group = lsp,
-  callback = function(args)
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-    local bufnr = args.buf
+  desc = "LSP events",
+  callback = function(event)
+    local client = vim.lsp.get_client_by_id(event.data.client_id)
+    local bufnr = event.buf
+
     if not client then
       return
+    end
+
+    if client:supports_method("textDocument/completion") then
+      vim.lsp.completion.enable(true, client.id, event.buf, { autotrigger = true })
     end
 
     local function map(mode, lhs, rhs, desc) vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc }) end
