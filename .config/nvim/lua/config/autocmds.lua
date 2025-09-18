@@ -65,75 +65,35 @@ autocmd("LspAttach", {
 
     local function map(mode, lhs, rhs, desc) vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc }) end
 
-    -- Navigation
     map("n", "gD", vim.lsp.buf.declaration, "Go to Declaration")
     map("n", "gd", vim.lsp.buf.definition, "Go to Definition")
     map("n", "gk", vim.lsp.buf.hover, "LSP Hover")
     map("n", "gi", vim.lsp.buf.implementation, "Go to Implementation")
     map("n", "gr", vim.lsp.buf.references, "Symbol References")
-
-    -- Code actions
     map("n", "ga", vim.lsp.buf.code_action, "Code Action")
     map("n", "gn", vim.lsp.buf.rename, "Rename Symbol")
-
-    -- Diagnostics
     map("n", "gh", vim.lsp.buf.signature_help, "Signature Help")
     map("n", "gl", vim.diagnostic.open_float, "Open Diagnostic Float")
+    map("n", "gt", vim.lsp.buf.type_definition, "Go to Type Definition")
+    map("n", "gf", function() vim.lsp.buf.format({ async = true }) end, "Format Buffer")
+    map("v", "gf", function() vim.lsp.buf.format({ async = true }) end, "Format Selection")
+    map("n", "gS", vim.lsp.buf.workspace_symbol, "Workspace Symbols")
+    map("n", "gs", vim.lsp.buf.document_symbol, "Document Symbols")
+    map("n", "[d", vim.diagnostic.goto_prev, "Previous Diagnostic")
+    map("n", "]d", vim.diagnostic.goto_next, "Next Diagnostic")
+    map(
+      "n",
+      "[e",
+      function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end,
+      "Previous Error"
+    )
+    map("n", "]e", function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end, "Next Error")
+    map("i", "<C-h>", vim.lsp.buf.signature_help, "Signature Help (Insert)")
+    map("n", "gvl", function()
+      local config = vim.diagnostic.config()
+      vim.diagnostic.config({ virtual_lines = not config.virtual_lines })
+    end, "Toggle Virtual Lines")
   end,
-})
-
-autocmd("FileType", {
-  group = lsp,
-  pattern = { "astro" },
-  callback = function() vim.lsp.enable("astro") end,
-})
-
-autocmd("FileType", {
-  group = lsp,
-  pattern = { "javascript", "typescript", "javascriptreact", "typescriptreact", "json", "html" },
-  callback = function() vim.lsp.enable("biome") end,
-})
-
-autocmd("FileType", {
-  group = lsp,
-  pattern = { "go" },
-  callback = function() vim.lsp.enable("go") end,
-})
-
-autocmd("FileType", {
-  group = lsp,
-  pattern = { "just" },
-  callback = function() vim.lsp.enable("just") end,
-})
-
-autocmd("FileType", {
-  group = lsp,
-  pattern = { "lua" },
-  callback = function() vim.lsp.enable("lua") end,
-})
-
-autocmd("FileType", {
-  group = lsp,
-  pattern = { "python" },
-  callback = function() vim.lsp.enable("python") end,
-})
-
-autocmd("FileType", {
-  group = lsp,
-  pattern = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
-  callback = function() vim.lsp.enable("tailwindcss") end,
-})
-
-autocmd("FileType", {
-  group = lsp,
-  pattern = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
-  callback = function() vim.lsp.enable("typescript") end,
-})
-
-autocmd("FileType", {
-  group = lsp,
-  pattern = { "yaml" },
-  callback = function() vim.lsp.enable("yaml") end,
 })
 
 autocmd({ "User" }, {
