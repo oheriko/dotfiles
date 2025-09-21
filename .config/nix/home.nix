@@ -20,6 +20,7 @@
     pkgs.httpie
     pkgs.jq
     pkgs.lazygit
+    pkgs.llama-cpp
     pkgs.neovim
     pkgs.nix
     (pkgs.ollama.override {
@@ -34,6 +35,7 @@
     pkgs.unzip
     pkgs.yazi
     pkgs.yq
+    pkgs.zellij
     pkgs.zoxide
   ];
 

@@ -46,9 +46,14 @@
 
       devShells.${system}.default = pkgs.mkShell {
         buildInputs = [
+          pkgs.air
           pkgs.biome
           pkgs.bun
+          pkgs.delve
           pkgs.gcc
+          pkgs.go
+          pkgs.gopls
+          pkgs.gotools
           pkgs.lua
           pkgs.lua-language-server
           pkgs.nixfmt-rfc-style

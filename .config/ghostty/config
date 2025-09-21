@@ -58,19 +58,25 @@ theme = tokyonight_night
 window-padding-x = 8
 window-padding-y = 4
 
-# Original settings
-
-keybind = ctrl+g>v=new_split:right
-keybind = ctrl+g>h=new_split:down
-keybind = ctrl+g>\=toggle_split_zoom
-keybind = ctrl+g>e=equalize_splits
-
-keybind = ctrl+g>z=close_surface
-
-keybind = super+j=goto_split:bottom
-keybind = super+k=goto_split:top
-keybind = super+h=goto_split:left
-keybind = super+l=goto_split:right
+# keybind = ctrl+shift+o=new_split:right
+# keybind = ctrl+shift+e=new_split:down
+#
+# keybind = super+ctrl+right_bracket=goto_split:next
+# keybind = super+ctrl+left_bracket=goto_split:previous
+#
+# keybind = ctrl+alt+up=goto_split:up
+# keybind = ctrl+alt+down=goto_split:down
+# keybind = ctrl+alt+left=goto_split:left
+# keybind = ctrl+alt+right=goto_split:right
+#
+# keybind = super+ctrl+shift+plus=equalize_splits
+#
+# keybind = super+ctrl+shift+up=resize_split:up,10
+# keybind = super+ctrl+shift+down=resize_split:down,10
+# keybind = super+ctrl+shift+left=resize_split:left,10
+# keybind = super+ctrl+shift+right=resize_split:right,10
+#
+# keybind = ctrl+shift+enter=toggle_split_zoom
 
 # visor mode
-keybind = global:cmd+grave_accent=toggle_quick_terminal
+# keybind = global:cmd+grave_accent=toggle_quick_terminal
