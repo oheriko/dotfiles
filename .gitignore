@@ -14,3 +14,4 @@
 !.config/starship/**
 !.config/yazi
 !.config/yazi/**
+!.zshrc

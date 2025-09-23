@@ -1,4 +1,4 @@
-# This is the configuration file for Ghostty.
+
 #
 # This template file has been automatically created at the following
 # path since Ghostty couldn't find any existing config files on your system:
@@ -57,6 +57,8 @@ theme = tokyonight_night
 
 window-padding-x = 8
 window-padding-y = 4
+
+shell-integration-features = no-cursor
 
 # keybind = ctrl+shift+o=new_split:right
 # keybind = ctrl+shift+e=new_split:down

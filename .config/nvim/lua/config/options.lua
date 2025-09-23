@@ -19,4 +19,7 @@ vim.opt.listchars:append({
 vim.opt.updatetime = 100
 vim.opt.timeoutlen = 500
 vim.opt.autoread = true
-vim.opt.completeopt = { "menu", "menuone", "noselect", "noinsert", "popup" }
+vim.opt.completeopt = { "menu", "menuone", "noselect", "popup", "preview" }
+vim.opt.pumheight = 15
+vim.opt.pumwidth = 25
+vim.opt.shortmess:append("c")

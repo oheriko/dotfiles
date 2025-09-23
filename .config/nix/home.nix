@@ -20,12 +20,8 @@
     pkgs.httpie
     pkgs.jq
     pkgs.lazygit
-    pkgs.llama-cpp
     pkgs.neovim
     pkgs.nix
-    (pkgs.ollama.override {
-      acceleration = "cuda";
-    })
     pkgs.podman
     pkgs.podman-tui
     pkgs.podman-compose
@@ -33,6 +29,7 @@
     pkgs.starship
     pkgs.tree-sitter
     pkgs.unzip
+    pkgs.uv
     pkgs.yazi
     pkgs.yq
     pkgs.zellij
@@ -40,7 +37,6 @@
   ];
 
   programs = {
-    # bash.enable = true;
     direnv = {
       enable = true;
       enableBashIntegration = true;

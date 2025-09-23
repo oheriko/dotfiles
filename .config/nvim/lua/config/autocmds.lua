@@ -33,11 +33,11 @@ autocmd("BufWritePre", {
 autocmd({ "BufWritePre" }, {
   group = format,
   desc = "Allow Neovim to create new directories",
-  callback = function(event)
-    if event.match:match("^%w%w+:[\\/][\\/]") then
+  callback = function(ev)
+    if ev.match:match("^%w%w+:[\\/][\\/]") then
       return
     end
-    local file = vim.uv.fs_realpath(event.match) or event.match
+    local file = vim.uv.fs_realpath(ev.match) or ev.match
     vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
   end,
 })
@@ -51,16 +51,22 @@ autocmd("TextYankPost", {
 autocmd("LspAttach", {
   group = lsp,
   desc = "LSP events",
-  callback = function(event)
-    local client = vim.lsp.get_client_by_id(event.data.client_id)
-    local bufnr = event.buf
+  callback = function(ev)
+    local client = vim.lsp.get_client_by_id(ev.data.client_id)
+    local bufnr = ev.buf
 
     if not client then
       return
     end
 
-    if client:supports_method("textDocument/completion") then
-      vim.lsp.completion.enable(true, client.id, event.buf, { autotrigger = true })
+    if client:supports_method("textDocument/completion") and client.name ~= "minuet" then
+      vim.lsp.completion.enable(true, client.id, ev.buf, {
+        autotrigger = true,
+      })
+    end
+
+    if client:supports_method("textDocument/inlineCompletion") then
+      vim.lsp.inline_completion.enable(true, { client_id = client.id })
     end
 
     local function map(mode, lhs, rhs, desc) vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc }) end
@@ -79,20 +85,11 @@ autocmd("LspAttach", {
     map("v", "gf", function() vim.lsp.buf.format({ async = true }) end, "Format Selection")
     map("n", "gS", vim.lsp.buf.workspace_symbol, "Workspace Symbols")
     map("n", "gs", vim.lsp.buf.document_symbol, "Document Symbols")
-    map("n", "[d", vim.diagnostic.goto_prev, "Previous Diagnostic")
-    map("n", "]d", vim.diagnostic.goto_next, "Next Diagnostic")
-    map(
-      "n",
-      "[e",
-      function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end,
-      "Previous Error"
-    )
-    map("n", "]e", function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end, "Next Error")
+    map("n", "[d", function() vim.goto_prev() end, "Previous Diagnostic")
+    map("n", "]d", function() vim.goto_next() end, "Next Diagnostic")
+    map("n", "[e", function() vim.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, "Previous Error")
+    map("n", "]e", function() vim.goto_next({ severity = vim.diagnostic.severity.ERROR }) end, "Next Error")
     map("i", "<C-h>", vim.lsp.buf.signature_help, "Signature Help (Insert)")
-    map("n", "gvl", function()
-      local config = vim.diagnostic.config()
-      vim.diagnostic.config({ virtual_lines = not config.virtual_lines })
-    end, "Toggle Virtual Lines")
   end,
 })
 

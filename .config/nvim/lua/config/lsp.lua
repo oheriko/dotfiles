@@ -42,20 +42,10 @@ vim.diagnostic.config({
       [vim.diagnostic.severity.INFO] = " ",
     },
   },
-  virtual_lines = false,
   underline = true,
   update_in_insert = true,
   severity_sort = true,
 })
-
-vim.keymap.set("n", "<leader>vl", function()
-  local config = vim.diagnostic.config()
-  if config.virtual_lines then
-    vim.diagnostic.config({ virtual_lines = false })
-  else
-    vim.diagnostic.config({ virtual_lines = { current_line = true } })
-  end
-end, { desc = "Toggle virtual lines" })
 
 vim.lsp.enable("biome")
 vim.lsp.enable("go")

@@ -10,6 +10,11 @@ vim.pack.add({
     version = "master",
   },
   {
+    name = "nui",
+    src = "https://github.com/MunifTanjim/nui.nvim",
+    version = "main",
+  },
+  {
     name = "tokyonight",
     src = "https://github.com/folke/tokyonight.nvim",
     version = "main",
@@ -19,21 +24,11 @@ vim.pack.add({
     src = "https://github.com/nvim-treesitter/nvim-treesitter",
     version = "main",
   },
-  -- {
-  --   name = "luasnip",
-  --   src = "https://github.com/L3MON4D3/LuaSnip",
-  --   version = "master",
-  -- },
   {
     name = "lualine",
     src = "https://github.com/nvim-lualine/lualine.nvim",
     version = "master",
   },
-  -- {
-  --   name = "notify",
-  --   src = "https://github.com/rcarriga/nvim-notify",
-  --   version = "master",
-  -- },
   {
     name = "fidget",
     src = "https://github.com/j-hui/fidget.nvim",
@@ -44,17 +39,11 @@ vim.pack.add({
     src = "https://github.com/folke/trouble.nvim",
     version = "main",
   },
-
   {
     name = "rendermarkdown",
     src = "https://github.com/meanderingprogrammer/render-markdown.nvim",
     version = "main",
   },
-  -- {
-  --   name = "diagnostic",
-  --   src = "https://github.com/rachartier/tiny-inline-diagnostic.nvim",
-  --   version = "main",
-  -- },
   {
     name = "fzf",
     src = "https://github.com/ibhagwan/fzf-lua",
@@ -70,19 +59,23 @@ vim.pack.add({
     src = "https://github.com/stevearc/conform.nvim",
     version = "master",
   },
-  -- {
-  -- 	name = "friendlynsnips",
-  -- 	src = "https://github.com/rafamadriz/friendly-snippets",
-  -- 	version = "main",
-  -- },
-  -- {
-  --   name = "blink",
-  --   src = "https://github.com/saghen/blink.cmp",
-  --   version = "v1.6.0",
-  -- },
-  -- {
-  --   name = "minuet",
-  --   src = "https://github.com/milanglacier/minuet-ai.nvim",
-  --   version = "main",
-  -- },
+  {
+    name = "avante",
+    src = "https://github.com/yetone/avante.nvim",
+    version = "main",
+    hooks = {
+      post_checkout = function(plugin)
+        vim.fn.system({
+          "sh",
+          "-c",
+          string.format("cd %s && %s", plugin.dir, "make"),
+        })
+      end,
+    },
+  },
+  {
+    name = "minuet",
+    src = "https://github.com/milanglacier/minuet-ai.nvim",
+    version = "main",
+  },
 })
