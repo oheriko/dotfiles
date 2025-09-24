@@ -8,6 +8,7 @@ export EDITOR=nvim
 export GIT_EDITOR=nvim
 export STARSHIP_CONFIG=~/.config/starship/config.toml
 export MISE_NIX_ALLOW_LOCAL_FLAKES=true
+export OLLAMA_KEEP_ALIVE=1h
 
 # ============================================================================
 # History Configuration
@@ -96,3 +97,5 @@ alias lg='eza -la --icons --git --header'
 
 # Git
 alias lz='lazygit'
+
+alias avante='nvim -c "lua vim.defer_fn(function()require(\"avante.api\").zen_mode()end, 100)"'
