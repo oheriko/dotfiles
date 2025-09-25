@@ -16,6 +16,7 @@ export OLLAMA_KEEP_ALIVE=1h
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
+
 setopt SHARE_HISTORY          # Share history between sessions
 setopt HIST_IGNORE_DUPS       # Don't record duplicates
 setopt HIST_IGNORE_SPACE      # Ignore commands starting with space
@@ -85,17 +86,22 @@ eval "$(zoxide init zsh)"
 # ============================================================================
 # Aliases
 # ============================================================================
+
+alias cl='clear'
+
 # Navigation
 alias cd='z'
 
 # File listing (eza)
+alias l='eza -la --git'
 alias ls='eza --icons'
+alias lt='eza --tree --icons'
 alias ll='eza -la --icons --git'
 alias la='eza -la --icons'
-alias lt='eza --tree --icons'
 alias lg='eza -la --icons --git --header'
 
 # Git
 alias lz='lazygit'
 
 alias avante='nvim -c "lua vim.defer_fn(function()require(\"avante.api\").zen_mode()end, 100)"'
+

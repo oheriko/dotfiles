@@ -8,7 +8,7 @@ require("plugins.lualine")
 require("plugins.fzf")
 require("plugins.yazi")
 -- require("plugins.grugfar")
--- require("plugins.imgclip")
+require("plugins.imgclip")
 
 require("plugins.conform")
 

@@ -60,6 +60,11 @@ vim.pack.add({
     version = "master",
   },
   {
+    name = "img-clip.nvim",
+    src = "https://github.com/HakonHarnes/img-clip.nvim",
+    version = "main",
+  },
+  {
     name = "avante",
     src = "https://github.com/yetone/avante.nvim",
     version = "main",

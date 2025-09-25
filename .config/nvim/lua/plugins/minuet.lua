@@ -12,7 +12,7 @@ local fts = {
 }
 
 minuet.setup({
-  provider = "openai_fim_compatible",
+  provider = "gemini",
   provider_options = {
     openai_fim_compatible = {
       api_key = "TERM",
@@ -22,6 +22,32 @@ minuet.setup({
       optional = {
         max_tokens = 64,
         top_p = 0.9,
+      },
+    },
+    gemini = {
+      model = "gemini-2.0-flash",
+      stream = true,
+      -- api_key = "GEMINI_API_KEY",
+      -- end_point = "https://generativelanguage.googleapis.com/v1beta/models",
+      optional = {
+        generationConfig = {
+          maxOutputTokens = 256,
+          -- When using `gemini-2.5-flash`, it is recommended to entirely
+          -- disable thinking for faster completion retrieval.
+          thinkingConfig = {
+            thinkingBudget = 0,
+          },
+        },
+        safetySettings = {
+          {
+            -- HARM_CATEGORY_HATE_SPEECH,
+            -- HARM_CATEGORY_HARASSMENT
+            -- HARM_CATEGORY_SEXUALLY_EXPLICIT
+            category = "HARM_CATEGORY_DANGEROUS_CONTENT",
+            -- BLOCK_NONE
+            threshold = "BLOCK_ONLY_HIGH",
+          },
+        },
       },
     },
   },
