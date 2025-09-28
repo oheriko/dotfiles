@@ -78,7 +78,7 @@ export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --preview-window
 # ============================================================================
 # Tool Initialization
 # ============================================================================
-eval "$(mise activate zsh)"
+# eval "$(mise activate zsh)"
 eval "$(fzf --zsh)"
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"

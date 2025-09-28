@@ -15,5 +15,5 @@ require("plugins.conform")
 require("plugins.trouble")
 require("plugins.rendermarkdown")
 
-require("plugins.avante")
-require("plugins.minuet")
+-- require("plugins.avante")
+-- require("plugins.minuet")

@@ -25,7 +25,7 @@ minuet.setup({
       },
     },
     gemini = {
-      model = "gemini-2.0-flash",
+      model = "gemini-2.5-flash-lite",
       stream = true,
       -- api_key = "GEMINI_API_KEY",
       -- end_point = "https://generativelanguage.googleapis.com/v1beta/models",
