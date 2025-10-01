@@ -20,11 +20,7 @@
     pkgs.httpie
     pkgs.jq
     pkgs.lazygit
-    pkgs.neovim
-    pkgs.nix
-    pkgs.podman
-    pkgs.podman-tui
-    pkgs.podman-compose
+    pkgs.lmstudio
     pkgs.ripgrep
     pkgs.starship
     pkgs.tree-sitter
@@ -39,7 +35,7 @@
   programs = {
     direnv = {
       enable = true;
-      enableBashIntegration = true;
+      enableZshIntegration = true;
       nix-direnv.enable = true;
     };
     home-manager.enable = true;

@@ -43,15 +43,18 @@
           pkgs.lua-language-server
           pkgs.nixfmt-rfc-style
           pkgs.nodejs_24
+          pkgs.openssl
           pkgs.python314
+          pkgs.rustc
+          pkgs.cargo
           pkgs.stylua
           pkgs.typescript-language-server
           pkgs.yamlfmt
         ];
 
-        # shellHook = ''
-        #   export LD_LIBRARY_PATH="$(dirname $(${pkgs.gcc}/bin/gcc --print-file-name=libstdc++.so.6)):$LD_LIBRARY_PATH"
-        # '';
+        shellHook = ''
+          #   export LD_LIBRARY_PATH="$(dirname $(${pkgs.gcc}/bin/gcc --print-file-name=libstdc++.so.6)):$LD_LIBRARY_PATH"
+        '';
       };
     };
 }
