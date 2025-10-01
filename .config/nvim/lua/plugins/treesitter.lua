@@ -1,61 +1,76 @@
-local treesitter = require("nvim-treesitter")
+-- lua/plugins/treesitter.lua
+-- Treesitter configuration
 
+local utils = require("config.utils")
+
+-- Get Treesitter plugin
+local treesitter = utils.safe_require("nvim-treesitter")
+if not treesitter then
+  return
+end
+
+-- Setup Treesitter
 treesitter.setup({})
-treesitter.install({
-	"astro",
-	"bash",
-	"c",
-	"caddy",
-	"comment",
-	"cpp",
-	"css",
-	"diff",
-	"dockerfile",
-	"editorconfig",
-	"git_config",
-	"git_rebase",
-	"gitattributes",
-	"gitcommit",
-	"gitignore",
-	"go",
-	"gomod",
-	"graphql",
-	"hcl",
-	"html",
-	"html_tags",
-	"javascript",
-	"jq",
-	"jsdoc",
-	"json",
-	"jsx",
-	"just",
-	"lua",
-	"luadoc",
-	"make",
-	"markdown",
-	"markdown_inline",
-	"nix",
-	"prisma",
-	"python",
-	"rust",
-	"solidity",
-	"sql",
-	"ssh_config",
-	"svelte",
-	"tmux",
-	"toml",
-	"tsx",
-	"typescript",
-	"vim",
-	"vimdoc",
-	"vue",
-	"yaml",
-	"zig",
-})
 
--- vim.api.nvim_create_autocmd("FileType", {
--- 	pattern = "markdown",
--- 	callback = function(args)
--- 		vim.treesitter.start(args.buf, "markdown")
--- 	end,
--- })
+-- Install parsers
+-- Note: Treesitter is manually enabled per filetype in config/autocmds.lua
+local parsers = {
+  -- Web & Markup
+  "astro",
+  "css",
+  "html",
+  "html_tags",
+  "javascript",
+  "jsx",
+  "markdown",
+  "markdown_inline",
+  "svelte",
+  "tsx",
+  "typescript",
+  "vue",
+
+  -- Systems
+  "c",
+  "cpp",
+  "go",
+  "gomod",
+  "lua",
+  "luadoc",
+  "python",
+  "rust",
+  "zig",
+
+  -- Config & Data
+  "bash",
+  "dockerfile",
+  "git_config",
+  "git_rebase",
+  "gitattributes",
+  "gitcommit",
+  "gitignore",
+  "json",
+  "just",
+  "nix",
+  "toml",
+  "yaml",
+
+  -- Other
+  "caddy",
+  "comment",
+  "diff",
+  "editorconfig",
+  "graphql",
+  "hcl",
+  "jq",
+  "jsdoc",
+  "make",
+  "prisma",
+  "solidity",
+  "sql",
+  "ssh_config",
+  "tmux",
+  "vim",
+  "vimdoc",
+}
+
+treesitter.install(parsers)

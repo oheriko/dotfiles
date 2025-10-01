@@ -1,22 +1,16 @@
---[[
-Yazi file manager integration
+-- lua/plugins/yazi.lua
+-- Yazi file manager integration
 
-Dependencies:
-  - nvim-lua/plenary.nvim (required)
-  - nvim-tree/nvim-web-devicons (optional, for icons)
+local utils = require("config.utils")
+local map = utils.map
 
-Installation in init.lua:
-  vim.pack.add({
-    'nvim-lua/plenary.nvim',
-    'nvim-tree/nvim-web-devicons'
-  })
+-- Get Yazi plugin
+local yazi = utils.safe_require("yazi")
+if not yazi then
+  return
+end
 
-Usage:
-  <leader>y - Open yazi
---]]
-
-local yazi = require("yazi")
-
+-- Setup Yazi
 yazi.setup({
   open_for_directories = true,
   keymaps = {
@@ -24,7 +18,9 @@ yazi.setup({
   },
 })
 
-local keymap = vim.keymap.set
+-- ============================================================================
+-- KEYMAPS
+-- ============================================================================
 
-keymap({ "n", "v" }, "<leader>-", "<cmd>Yazi<cr>", { desc = "Open yazi at the current file" })
-keymap({ "n", "v" }, "<leader>cw", "<cmd>Yazi cwd<cr>", { desc = "Open the file manager in nvim's working directory" })
+map({ "n", "v" }, "<leader>-", "<cmd>Yazi<cr>", "Yazi: Open at current file")
+map({ "n", "v" }, "<leader>cw", "<cmd>Yazi cwd<cr>", "Yazi: Open at cwd")

@@ -1,20 +1,36 @@
-local autocmd = vim.api.nvim_create_autocmd
-local augroup = vim.api.nvim_create_augroup
+-- lua/config/autocmds.lua
+-- Autocommands configuration
 
-local filetype = augroup("FileTypes", { clear = true })
-local format = augroup("Format", { clear = true })
-local highlight = augroup("Highlight", { clear = true })
-local lsp = augroup("Lsp", { clear = true })
+local autocmd = vim.api.nvim_create_autocmd
+local augroup = require("config.utils").augroup
+local map = require("config.utils").map
+
+-- ============================================================================
+-- FILETYPE SETTINGS
+-- ============================================================================
+
+local filetype = augroup("FileTypes")
 
 autocmd("FileType", {
   group = filetype,
   desc = "Disable auto-comment on new lines",
-  callback = function() vim.opt_local.formatoptions:remove({ "r", "o" }) end,
+  callback = function()
+    vim.opt_local.formatoptions:remove({ "r", "o" })
+  end,
 })
+
+-- ============================================================================
+-- FORMATTING
+-- ============================================================================
+
+local format = augroup("Format")
 
 autocmd("BufEnter", {
   group = format,
-  callback = function() vim.opt.formatoptions = "cqrnj" end,
+  desc = "Set format options",
+  callback = function()
+    vim.opt.formatoptions = "cqrnj"
+  end,
 })
 
 autocmd("BufWritePre", {
@@ -27,10 +43,11 @@ autocmd("BufWritePre", {
   end,
 })
 
-autocmd({ "BufWritePre" }, {
+autocmd("BufWritePre", {
   group = format,
-  desc = "Allow Neovim to create new directories",
+  desc = "Create parent directories if they don't exist",
   callback = function(ev)
+    -- Skip for special protocols (http://, etc)
     if ev.match:match("^%w%w+:[\\/][\\/]") then
       return
     end
@@ -39,15 +56,29 @@ autocmd({ "BufWritePre" }, {
   end,
 })
 
+-- ============================================================================
+-- VISUAL FEEDBACK
+-- ============================================================================
+
+local highlight = augroup("Highlight")
+
 autocmd("TextYankPost", {
   group = highlight,
-  desc = "Highlight when yanking text",
-  callback = function() vim.hl.on_yank({ timeout = 100 }) end,
+  desc = "Highlight yanked text briefly",
+  callback = function()
+    vim.hl.on_yank({ timeout = 100 })
+  end,
 })
+
+-- ============================================================================
+-- LSP
+-- ============================================================================
+
+local lsp = augroup("Lsp")
 
 autocmd("LspAttach", {
   group = lsp,
-  desc = "LSP events",
+  desc = "Configure LSP keymaps and features on attach",
   callback = function(ev)
     local client = vim.lsp.get_client_by_id(ev.data.client_id)
     local bufnr = ev.buf
@@ -56,79 +87,103 @@ autocmd("LspAttach", {
       return
     end
 
+    -- Enable inline completion if supported
     if client:supports_method("textDocument/inlineCompletion") then
       vim.lsp.inline_completion.enable(true, { client_id = client.id })
     end
 
-    local function map(mode, lhs, rhs, desc) vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc }) end
+    -- Buffer-local keymap helper
+    local function lsp_map(mode, lhs, rhs, desc)
+      vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc })
+    end
 
-    map("n", "gD", vim.lsp.buf.declaration, "Go to Declaration")
-    map("n", "gd", vim.lsp.buf.definition, "Go to Definition")
-    map("n", "gk", vim.lsp.buf.hover, "LSP Hover")
-    map("n", "gi", vim.lsp.buf.implementation, "Go to Implementation")
-    map("n", "gr", vim.lsp.buf.references, "Symbol References")
-    map("n", "gt", vim.lsp.buf.type_definition, "Go to Type Definition")
-    map("n", "ga", vim.lsp.buf.code_action, "Code Action")
-    map("n", "gn", vim.lsp.buf.rename, "Rename Symbol")
-    map("n", "gh", vim.lsp.buf.signature_help, "Signature Help")
-    map("i", "<C-h>", vim.lsp.buf.signature_help, "Signature Help (Insert)")
-    map(
-      "n",
-      "gl",
-      function()
-        vim.diagnostic.open_float({
-          border = "rounded",
-          source = true,
-          scope = "cursor",
-          focusable = true,
-        })
-      end,
-      "Open Diagnostic Float"
-    )
-    map("n", "gf", function() vim.lsp.buf.format({ async = true }) end, "Format Buffer")
-    map("v", "gf", function() vim.lsp.buf.format({ async = true }) end, "Format Selection")
-    map("n", "gS", vim.lsp.buf.workspace_symbol, "Workspace Symbols")
-    map("n", "gs", vim.lsp.buf.document_symbol, "Document Symbols")
-    map("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end, "Previous Diagnostic")
-    map("n", "]d", function() vim.diagnostic.jump({ count = 1, float = true }) end, "Next Diagnostic")
-    map(
-      "n",
-      "[e",
-      function() vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR, float = true }) end,
-      "Previous Error"
-    )
-    map(
-      "n",
-      "]e",
-      function() vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR, float = true }) end,
-      "Next Error"
-    )
-    map("n", "[D", function() vim.diagnostic.jump({ count = -math.huge, float = true }) end, "First Diagnostic")
-    map("n", "]D", function() vim.diagnostic.jump({ count = math.huge, float = true }) end, "Last Diagnostic")
+    -- Navigation
+    lsp_map("n", "gD", vim.lsp.buf.declaration, "Go to Declaration")
+    lsp_map("n", "gd", vim.lsp.buf.definition, "Go to Definition")
+    lsp_map("n", "gk", vim.lsp.buf.hover, "LSP Hover")
+    lsp_map("n", "gi", vim.lsp.buf.implementation, "Go to Implementation")
+    lsp_map("n", "gr", vim.lsp.buf.references, "Symbol References")
+    lsp_map("n", "gt", vim.lsp.buf.type_definition, "Go to Type Definition")
+
+    -- Actions
+    lsp_map("n", "ga", vim.lsp.buf.code_action, "Code Action")
+    lsp_map("n", "gn", vim.lsp.buf.rename, "Rename Symbol")
+
+    -- Information
+    lsp_map("n", "gh", vim.lsp.buf.signature_help, "Signature Help")
+    lsp_map("i", "<C-h>", vim.lsp.buf.signature_help, "Signature Help (Insert)")
+    lsp_map("n", "gl", function()
+      vim.diagnostic.open_float({
+        border = "rounded",
+        source = true,
+        scope = "cursor",
+        focusable = true,
+      })
+    end, "Open Diagnostic Float")
+
+    -- Formatting
+    lsp_map("n", "gf", function()
+      vim.lsp.buf.format({ async = true })
+    end, "Format Buffer")
+    lsp_map("v", "gf", function()
+      vim.lsp.buf.format({ async = true })
+    end, "Format Selection")
+
+    -- Symbols
+    lsp_map("n", "gS", vim.lsp.buf.workspace_symbol, "Workspace Symbols")
+    lsp_map("n", "gs", vim.lsp.buf.document_symbol, "Document Symbols")
+
+    -- Diagnostics navigation
+    lsp_map("n", "[d", function()
+      vim.diagnostic.jump({ count = -1, float = true })
+    end, "Previous Diagnostic")
+    lsp_map("n", "]d", function()
+      vim.diagnostic.jump({ count = 1, float = true })
+    end, "Next Diagnostic")
+    lsp_map("n", "[e", function()
+      vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR, float = true })
+    end, "Previous Error")
+    lsp_map("n", "]e", function()
+      vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR, float = true })
+    end, "Next Error")
+    lsp_map("n", "[D", function()
+      vim.diagnostic.jump({ count = -math.huge, float = true })
+    end, "First Diagnostic")
+    lsp_map("n", "]D", function()
+      vim.diagnostic.jump({ count = math.huge, float = true })
+    end, "Last Diagnostic")
   end,
 })
 
--- Enable treesitter for these filetypes
+-- ============================================================================
+-- TREESITTER
+-- ============================================================================
+
+local treesitter_filetypes = {
+  "astro",
+  "c",
+  "css",
+  "dockerfile",
+  "git",
+  "html",
+  "javascript",
+  "javascriptreact",
+  "go",
+  "lua",
+  "markdown",
+  "nix",
+  "rust",
+  "toml",
+  "typescript",
+  "typescriptreact",
+  "yaml",
+  "zig",
+}
+
 autocmd("FileType", {
-  pattern = {
-    "astro",
-    "c",
-    "css",
-    "dockerfile",
-    "git",
-    "html",
-    "javascript",
-    "javascriptreact",
-    "go",
-    "lua",
-    "markdown",
-    "nix",
-    "rust",
-    "toml",
-    "typescript",
-    "typescriptreact",
-    "yaml",
-    "zig",
-  },
-  callback = function() vim.treesitter.start() end,
+  pattern = treesitter_filetypes,
+  desc = "Enable treesitter for supported filetypes",
+  callback = function()
+    vim.treesitter.start()
+  end,
 })

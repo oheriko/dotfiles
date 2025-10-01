@@ -1,5 +1,17 @@
-local minuet = require("minuet")
+-- lua/plugins/minuet.lua
+-- Minuet AI completion configuration
 
+local utils = require("config.utils")
+local map = utils.map
+local notify = utils.notify
+
+-- Get Minuet plugin
+local minuet = utils.safe_require("minuet")
+if not minuet then
+  return
+end
+
+-- Filetypes where AI completion is enabled
 local completion_fts = {
   "go",
   "lua",
@@ -21,8 +33,19 @@ local completion_fts = {
   "markdown",
 }
 
+-- Get Ollama endpoint from env or use default
+local function get_ollama_endpoint()
+  local endpoint = vim.fn.getenv("OLLAMA_ENDPOINT")
+  if endpoint == vim.NIL or endpoint == "" then
+    return "http://localhost:11434"
+  end
+  return tostring(endpoint)
+end
+
+-- Setup Minuet
 minuet.setup({
   provider = "gemini",
+
   provider_options = {
     gemini = {
       model = "gemini-2.5-flash-lite",
@@ -46,7 +69,7 @@ minuet.setup({
     openai_fim_compatible = {
       api_key = "TERM",
       name = "Ollama",
-      end_point = "http://localhost:11434/v1/completions",
+      end_point = get_ollama_endpoint() .. "/v1/completions",
       model = "qwen2.5-coder:7b",
       optional = {
         max_tokens = 256,
@@ -56,6 +79,7 @@ minuet.setup({
       },
     },
   },
+
   virtualtext = {
     auto_trigger_ft = completion_fts,
     keymap = {
@@ -67,18 +91,22 @@ minuet.setup({
       dismiss = "<A-e>",
     },
   },
+
   n_completions = 3,
   debounce = 400,
   throttle = 1000,
 })
 
--- Provider switching keymaps
-vim.keymap.set("n", "<leader>mg", function()
-  require("minuet.config").config.provider = "gemini"
-  vim.notify("Minuet: Switched to Gemini", vim.log.levels.INFO)
-end, { desc = "Minuet: Use Gemini" })
+-- ============================================================================
+-- PROVIDER SWITCHING
+-- ============================================================================
 
-vim.keymap.set("n", "<leader>mo", function()
+map("n", "<leader>mg", function()
+  require("minuet.config").config.provider = "gemini"
+  notify("Minuet: Switched to Gemini")
+end, "Minuet: Use Gemini")
+
+map("n", "<leader>mo", function()
   require("minuet.config").config.provider = "openai_fim_compatible"
-  vim.notify("Minuet: Switched to Ollama", vim.log.levels.INFO)
-end, { desc = "Minuet: Use Ollama" })
+  notify("Minuet: Switched to Ollama")
+end, "Minuet: Use Ollama")

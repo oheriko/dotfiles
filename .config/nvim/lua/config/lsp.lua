@@ -1,3 +1,5 @@
+local utils = require("config.utils")
+
 local icons = {
   Class = " ",
   Color = " ",
@@ -56,17 +58,21 @@ for i, kind in ipairs(completion_kinds) do
   completion_kinds[i] = icons[kind] and icons[kind] .. kind or kind
 end
 
-for _, bind in ipairs({ "grn", "gra", "gri", "grr" }) do
-  pcall(vim.keymap.del, "n", bind)
+local servers = {
+  "biome",
+  "go",
+  "just",
+  "lua",
+  "prisma",
+  "python",
+  "rust",
+  "tailwindcss",
+  "typescript",
+  "yaml",
+}
+
+for _, server in ipairs(servers) do
+  vim.lsp.enable(server)
 end
 
-vim.lsp.enable("biome")
-vim.lsp.enable("go")
-vim.lsp.enable("just")
-vim.lsp.enable("lua")
-vim.lsp.enable("prisma")
-vim.lsp.enable("python")
-vim.lsp.enable("rust")
-vim.lsp.enable("tailwindcss")
-vim.lsp.enable("typescript")
-vim.lsp.enable("yaml")
+utils.del_map("n", { "grn", "gra", "gri", "grr" })

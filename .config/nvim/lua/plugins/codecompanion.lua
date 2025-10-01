@@ -1,5 +1,17 @@
-local codecompanion = require("codecompanion")
+-- lua/plugins/codecompanion.lua
+-- CodeCompanion configuration
 
+local utils = require("config.utils")
+local env = require("config.env")
+local map = utils.map
+
+-- Get CodeCompanion plugin
+local codecompanion = utils.safe_require("codecompanion")
+if not codecompanion then
+  return
+end
+
+-- Setup CodeCompanion
 codecompanion.setup({
   adapters = {
     http = {
@@ -17,19 +29,25 @@ codecompanion.setup({
       end,
     },
   },
+
   strategies = {
     chat = {
       adapter = "anthropic",
       tools = {
         ["mcp"] = {
-          callback = function() return require("mcphub.extensions.codecompanion") end,
+          callback = function()
+            local ok, mcp = pcall(require, "mcphub.extensions.codecompanion")
+            if not ok then
+              return nil
+            end
+            return mcp
+          end,
           description = "Access MCP servers (fetch, git, filesystem, etc.)",
           opts = {
             requires_approval = false,
           },
         },
       },
-      -- ⭐ Enable blink.cmp for chat buffer completion
       opts = {
         completion_provider = "blink", -- Use blink.cmp for @ and / completions
       },
@@ -41,12 +59,19 @@ codecompanion.setup({
       adapter = "anthropic",
       tools = {
         ["mcp"] = {
-          callback = function() return require("mcphub.extensions.codecompanion") end,
+          callback = function()
+            local ok, mcp = pcall(require, "mcphub.extensions.codecompanion")
+            if not ok then
+              return nil
+            end
+            return mcp
+          end,
           description = "Access MCP servers",
         },
       },
     },
   },
+
   extensions = {
     mcphub = {
       callback = "mcphub.extensions.codecompanion",
@@ -65,6 +90,7 @@ codecompanion.setup({
       },
     },
   },
+
   display = {
     chat = {
       window = {
@@ -76,11 +102,14 @@ codecompanion.setup({
   },
 })
 
--- Keymaps remain the same
-local map = vim.keymap.set
-map({ "n", "v" }, "<leader>ca", "<cmd>CodeCompanionActions<cr>", { desc = "CodeCompanion: Actions" })
-map({ "n", "v" }, "<leader>ct", "<cmd>CodeCompanionChat Toggle<cr>", { desc = "CodeCompanion: Toggle chat" })
-map("v", "<leader>c+", "<cmd>CodeCompanionChat Add<cr>", { desc = "CodeCompanion: Add to chat" })
-map({ "n", "v" }, "<leader>ci", "<cmd>CodeCompanion<cr>", { desc = "CodeCompanion: Inline" })
+-- ============================================================================
+-- KEYMAPS
+-- ============================================================================
 
+map({ "n", "v" }, "<leader>ca", "<cmd>CodeCompanionActions<cr>", "CodeCompanion: Actions")
+map({ "n", "v" }, "<leader>ct", "<cmd>CodeCompanionChat Toggle<cr>", "CodeCompanion: Toggle chat")
+map("v", "<leader>c+", "<cmd>CodeCompanionChat Add<cr>", "CodeCompanion: Add to chat")
+map({ "n", "v" }, "<leader>ci", "<cmd>CodeCompanion<cr>", "CodeCompanion: Inline")
+
+-- Command abbreviation
 vim.cmd([[cab cc CodeCompanion]])
