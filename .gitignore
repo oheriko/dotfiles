@@ -14,5 +14,7 @@
 !.config/starship/**
 !.config/yazi
 !.config/yazi/**
+!.zsh-vi-mode
+!.zsh-vi-mode/**
 !.zshrc
 **/.env*
