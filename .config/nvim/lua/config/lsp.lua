@@ -23,17 +23,13 @@ local icons = {
   Variable = " ",
 }
 
-local completion_kinds = vim.lsp.protocol.CompletionItemKind
-
-for i, kind in ipairs(completion_kinds) do
-  completion_kinds[i] = icons[kind] and icons[kind] .. kind or kind
-end
-
-for _, bind in ipairs({ "grn", "gra", "gri", "grr" }) do
-  pcall(vim.keymap.del, "n", bind)
-end
-
 vim.diagnostic.config({
+  virtual_text = {
+    spacing = 4,
+    source = "if_many",
+    prefix = "●",
+    current_line = true,
+  },
   signs = {
     text = {
       [vim.diagnostic.severity.ERROR] = " ",
@@ -43,9 +39,26 @@ vim.diagnostic.config({
     },
   },
   underline = true,
-  update_in_insert = true,
+  update_in_insert = false,
   severity_sort = true,
+  float = {
+    border = "rounded",
+    source = true,
+    header = "",
+    prefix = "",
+    focusable = true,
+  },
 })
+
+local completion_kinds = vim.lsp.protocol.CompletionItemKind
+
+for i, kind in ipairs(completion_kinds) do
+  completion_kinds[i] = icons[kind] and icons[kind] .. kind or kind
+end
+
+for _, bind in ipairs({ "grn", "gra", "gri", "grr" }) do
+  pcall(vim.keymap.del, "n", bind)
+end
 
 vim.lsp.enable("biome")
 vim.lsp.enable("go")

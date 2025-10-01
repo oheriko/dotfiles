@@ -29,6 +29,10 @@ codecompanion.setup({
           },
         },
       },
+      -- ⭐ Enable blink.cmp for chat buffer completion
+      opts = {
+        completion_provider = "blink", -- Use blink.cmp for @ and / completions
+      },
     },
     inline = {
       adapter = "anthropic",
@@ -43,22 +47,21 @@ codecompanion.setup({
       },
     },
   },
-  -- NEW: Add extensions configuration
   extensions = {
     mcphub = {
       callback = "mcphub.extensions.codecompanion",
       opts = {
         -- MCP Tools
-        make_tools = true, -- Make individual tools (@server__tool) and server groups (@server)
-        show_server_tools_in_chat = true, -- Show individual tools in chat completion
-        add_mcp_prefix_to_tool_names = false, -- Add mcp__ prefix
-        show_result_in_chat = true, -- Show tool results directly in chat
+        make_tools = true,
+        show_server_tools_in_chat = true,
+        add_mcp_prefix_to_tool_names = false,
+        show_result_in_chat = true,
 
         -- MCP Resources
-        make_vars = true, -- Convert MCP resources to #variables
+        make_vars = true,
 
         -- MCP Prompts
-        make_slash_commands = true, -- Add MCP prompts as /slash commands
+        make_slash_commands = true,
       },
     },
   },

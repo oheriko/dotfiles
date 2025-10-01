@@ -35,6 +35,25 @@ vim.pack.add({
     version = "main",
   },
   {
+    name = "friendly-snippets",
+    src = "https://github.com/rafamadriz/friendly-snippets",
+    version = "main",
+  },
+  {
+    name = "blink.cmp",
+    src = "https://github.com/Saghen/blink.cmp",
+    version = "v1.7",
+    hooks = {
+      post_checkout = function(plugin)
+        vim.fn.system({
+          "sh",
+          "-c",
+          string.format("cd %s && cargo build --release", plugin.dir),
+        })
+      end,
+    },
+  },
+  {
     name = "trouble",
     src = "https://github.com/folke/trouble.nvim",
     version = "main",

@@ -12,6 +12,7 @@ require("plugins.imgclip")
 
 require("plugins.conform")
 
+require("plugins.blink")
 require("plugins.trouble")
 require("plugins.rendermarkdown")
 

@@ -21,12 +21,14 @@ vim.opt.updatetime = 100
 vim.opt.timeoutlen = 500
 vim.opt.autoread = true
 vim.opt.completeopt = {
+  "fuzzy",
   "menu",
-  "menuone",
-  -- "noselect",
+  "noinsert",
+  "noselect",
   "popup",
   "preview",
 }
 -- vim.opt.pumheight = 15
 -- vim.opt.pumwidth = 25
 vim.opt.shortmess:append("c")
+vim.opt.winborder = "rounded"
