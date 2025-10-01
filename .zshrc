@@ -9,6 +9,7 @@ export GIT_EDITOR=nvim
 export STARSHIP_CONFIG=~/.config/starship/config.toml
 export MISE_NIX_ALLOW_LOCAL_FLAKES=true
 export OLLAMA_KEEP_ALIVE=1h
+export PNPM_HOME="/home/erik/.local/share/pnpm"
 
 # ============================================================================
 # History Configuration
@@ -68,30 +69,55 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'  # Gray color for suggestions
 bindkey '^Y' autosuggest-accept
 
 # ============================================================================
+# Vi mode configuration
+# ============================================================================
+
+bindkey -v
+export KEYTIMEOUT=1
+
+bindkey "^F" history-incremental-search-forward
+bindkey "^R" history-incremental-search-backward
+bindkey "^[OA" up-line-or-beginning-search
+bindkey "^[OB" down-line-or-beginning-search
+bindkey -M vicmd "k" up-line-or-beginning-search
+bindkey -M vicmd "j" down-line-or-beginning-search
+bindkey "^P" history-search-backward
+bindkey "^N" history-search-forward
+bindkey -M vicmd '?' history-incremental-search-backward
+bindkey -M vicmd '/' history-incremental-search-forward
+bindkey -M viins '^R' history-incremental-pattern-search-backward
+bindkey -M viins '^F' history-incremental-pattern-search-forward
+bindkey '^P' history-beginning-search-backward
+bindkey '^N' history-beginning-search-forward
+
+ZVM_CURSOR_STYLE_ENABLED=false
+
+# ============================================================================
 # FZF Configuration
 # ============================================================================
-export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND=
-export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --preview-window=right:50%'
+FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+FZF_ALT_C_COMMAND=
+FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --preview-window=right:50%'
 
 # ============================================================================
 # Tool Initialization
 # ============================================================================
-# eval "$(mise activate zsh)"
+if [[ "${widgets[zle-keymap-select]#user:}" == "starship_zle-keymap-select" || \
+      "${widgets[zle-keymap-select]#user:}" == "starship_zle-keymap-select-wrapped" ]]; then
+    zle -N zle-keymap-select "";
+fi
+
 eval "$(direnv hook zsh)"
 eval "$(fzf --zsh)"
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
-source $HOME/.zsh-vi-mode/zsh-vi-mode.plugin.zsh
 
-# pnpm
-export PNPM_HOME="/home/erik/.local/share/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
-# pnpm end
+
 # ============================================================================
 # Aliases
 # ============================================================================
