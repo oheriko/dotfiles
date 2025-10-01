@@ -21,6 +21,7 @@
     pkgs.jq
     pkgs.lazygit
     pkgs.lmstudio
+    pkgs.neovim
     pkgs.ripgrep
     pkgs.starship
     pkgs.tree-sitter

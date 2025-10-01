@@ -9,6 +9,7 @@ vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.softtabstop = 2
 vim.opt.expandtab = true
+vim.opt.laststatus = 3
 vim.opt.listchars:append({
   tab = "❘-",
   trail = "￮",
@@ -19,7 +20,13 @@ vim.opt.listchars:append({
 vim.opt.updatetime = 100
 vim.opt.timeoutlen = 500
 vim.opt.autoread = true
-vim.opt.completeopt = { "menu", "menuone", "noselect", "popup", "preview" }
-vim.opt.pumheight = 15
-vim.opt.pumwidth = 25
+vim.opt.completeopt = {
+  "menu",
+  "menuone",
+  -- "noselect",
+  "popup",
+  "preview",
+}
+-- vim.opt.pumheight = 15
+-- vim.opt.pumwidth = 25
 vim.opt.shortmess:append("c")

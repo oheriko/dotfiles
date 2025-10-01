@@ -65,6 +65,11 @@ vim.pack.add({
     version = "main",
   },
   {
+    name = "mcphub.nvim",
+    src = "https://github.com/ravitemer/mcphub.nvim",
+    version = "main",
+  },
+  {
     name = "avante",
     src = "https://github.com/yetone/avante.nvim",
     version = "main",
@@ -77,6 +82,12 @@ vim.pack.add({
         })
       end,
     },
+  },
+
+  {
+    name = "codecompanion.nvim",
+    src = "https://github.com/olimorris/codecompanion.nvim",
+    version = "main",
   },
   {
     name = "minuet",

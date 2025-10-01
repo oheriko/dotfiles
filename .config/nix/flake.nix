@@ -6,12 +6,16 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    mcp-hub.url = "github:ravitemer/mcp-hub";
+    mcphub-nvim.url = "github:ravitemer/mcphub.nvim";
     neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
   };
   outputs =
     {
       nixpkgs,
       home-manager,
+      mcp-hub,
+      mcphub-nvim,
       neovim-nightly,
       ...
     }@inputs:
@@ -20,6 +24,12 @@
       pkgs = import nixpkgs {
         inherit system;
         overlays = [ neovim-nightly.overlays.default ];
+        config.allowUnfreePredicate =
+          pkg:
+          builtins.elem (nixpkgs.lib.getName pkg) [
+            "lmstudio"
+          ];
+
       };
     in
     {
@@ -41,10 +51,12 @@
           pkgs.gotools
           pkgs.lua
           pkgs.lua-language-server
+          mcp-hub.packages."${system}".default
+          mcphub-nvim.packages."${system}".default
           pkgs.nixfmt-rfc-style
           pkgs.nodejs_24
           pkgs.openssl
-          pkgs.python314
+          pkgs.python313
           pkgs.rustc
           pkgs.cargo
           pkgs.stylua
