@@ -31,6 +31,9 @@ conform.setup({
     rust = { "rustfmt" },
     python = { "ruff_fix", "ruff_format" },
     lua = { "stylua" },
+    sh = { "shfmt" },
+    bash = { "shfmt" },
+    zsh = { "shfmt" },
 
     -- Other
     just = { "just" },

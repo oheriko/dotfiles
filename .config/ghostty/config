@@ -51,7 +51,7 @@
 cursor-style = block
 cursor-style-blink = true
 
-font-family = Liberation Mono
+font-family = Martian Mono
 
 theme = tokyonight_night
 

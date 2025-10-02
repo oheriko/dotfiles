@@ -3,23 +3,23 @@
 
 -- Filetypes where AI completion is enabled
 local ai_completion_fts = {
-  "go",
-  "lua",
-  "javascript",
-  "javascriptreact",
-  "typescript",
-  "typescriptreact",
-  "python",
-  "rust",
-  "sh",
   "bash",
   "c",
   "cpp",
+  "go",
   "java",
+  "javascript",
+  "javascriptreact",
   "json",
-  "yaml",
-  "toml",
+  "lua",
   "markdown",
+  "python",
+  "rust",
+  "sh",
+  "toml",
+  "typescript",
+  "typescriptreact",
+  "yaml",
 }
 
 return {
@@ -49,9 +49,7 @@ return {
       opts = {
         trailing_slash = false,
         label_trailing_slash = true,
-        get_cwd = function(context)
-          return vim.fn.expand(("#%d:p:h"):format(context.bufnr))
-        end,
+        get_cwd = function(context) return vim.fn.expand(("#%d:p:h"):format(context.bufnr)) end,
         show_hidden_files_by_default = true,
       },
     },

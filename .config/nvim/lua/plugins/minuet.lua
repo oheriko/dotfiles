@@ -13,24 +13,23 @@ end
 
 -- Filetypes where AI completion is enabled
 local completion_fts = {
+  "bash",
+  "c",
+  "cpp",
   "go",
-  "lua",
   "javascript",
   "javascriptreact",
-  "typescript",
-  "typescriptreact",
+  "json",
+  "lua",
+  "markdown",
   "python",
   "rust",
   "sh",
-  "bash",
-  "zsh",
-  "c",
-  "cpp",
-  "java",
-  "json",
-  "yaml",
   "toml",
-  "markdown",
+  "typescript",
+  "typescriptreact",
+  "yaml",
+  "zsh",
 }
 
 -- Get Ollama endpoint from env or use default

@@ -41,8 +41,10 @@
       devShells.${system}.default = pkgs.mkShell {
         buildInputs = [
           pkgs.air
+          pkgs.bash-language-server
           pkgs.biome
           pkgs.bun
+          pkgs.cargo
           pkgs.delve
           pkgs.dive
           pkgs.gcc
@@ -58,7 +60,8 @@
           pkgs.openssl
           pkgs.python313
           pkgs.rustc
-          pkgs.cargo
+          pkgs.shellcheck
+          pkgs.shfmt
           pkgs.stylua
           pkgs.typescript-language-server
           pkgs.yamlfmt

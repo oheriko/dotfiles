@@ -14,9 +14,7 @@ local filetype = augroup("FileTypes")
 autocmd("FileType", {
   group = filetype,
   desc = "Disable auto-comment on new lines",
-  callback = function()
-    vim.opt_local.formatoptions:remove({ "r", "o" })
-  end,
+  callback = function() vim.opt_local.formatoptions:remove({ "r", "o" }) end,
 })
 
 -- ============================================================================
@@ -28,9 +26,7 @@ local format = augroup("Format")
 autocmd("BufEnter", {
   group = format,
   desc = "Set format options",
-  callback = function()
-    vim.opt.formatoptions = "cqrnj"
-  end,
+  callback = function() vim.opt.formatoptions = "cqrnj" end,
 })
 
 autocmd("BufWritePre", {
@@ -65,9 +61,7 @@ local highlight = augroup("Highlight")
 autocmd("TextYankPost", {
   group = highlight,
   desc = "Highlight yanked text briefly",
-  callback = function()
-    vim.hl.on_yank({ timeout = 100 })
-  end,
+  callback = function() vim.hl.on_yank({ timeout = 100 }) end,
 })
 
 -- ============================================================================
@@ -93,9 +87,7 @@ autocmd("LspAttach", {
     end
 
     -- Buffer-local keymap helper
-    local function lsp_map(mode, lhs, rhs, desc)
-      vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc })
-    end
+    local function lsp_map(mode, lhs, rhs, desc) vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc }) end
 
     -- Navigation
     lsp_map("n", "gD", vim.lsp.buf.declaration, "Go to Declaration")
@@ -112,46 +104,45 @@ autocmd("LspAttach", {
     -- Information
     lsp_map("n", "gh", vim.lsp.buf.signature_help, "Signature Help")
     lsp_map("i", "<C-h>", vim.lsp.buf.signature_help, "Signature Help (Insert)")
-    lsp_map("n", "gl", function()
-      vim.diagnostic.open_float({
-        border = "rounded",
-        source = true,
-        scope = "cursor",
-        focusable = true,
-      })
-    end, "Open Diagnostic Float")
+    lsp_map(
+      "n",
+      "gl",
+      function()
+        vim.diagnostic.open_float({
+          border = "rounded",
+          source = true,
+          scope = "cursor",
+          focusable = true,
+        })
+      end,
+      "Open Diagnostic Float"
+    )
 
     -- Formatting
-    lsp_map("n", "gf", function()
-      vim.lsp.buf.format({ async = true })
-    end, "Format Buffer")
-    lsp_map("v", "gf", function()
-      vim.lsp.buf.format({ async = true })
-    end, "Format Selection")
+    lsp_map("n", "gf", function() vim.lsp.buf.format({ async = true }) end, "Format Buffer")
+    lsp_map("v", "gf", function() vim.lsp.buf.format({ async = true }) end, "Format Selection")
 
     -- Symbols
     lsp_map("n", "gS", vim.lsp.buf.workspace_symbol, "Workspace Symbols")
     lsp_map("n", "gs", vim.lsp.buf.document_symbol, "Document Symbols")
 
     -- Diagnostics navigation
-    lsp_map("n", "[d", function()
-      vim.diagnostic.jump({ count = -1, float = true })
-    end, "Previous Diagnostic")
-    lsp_map("n", "]d", function()
-      vim.diagnostic.jump({ count = 1, float = true })
-    end, "Next Diagnostic")
-    lsp_map("n", "[e", function()
-      vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR, float = true })
-    end, "Previous Error")
-    lsp_map("n", "]e", function()
-      vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR, float = true })
-    end, "Next Error")
-    lsp_map("n", "[D", function()
-      vim.diagnostic.jump({ count = -math.huge, float = true })
-    end, "First Diagnostic")
-    lsp_map("n", "]D", function()
-      vim.diagnostic.jump({ count = math.huge, float = true })
-    end, "Last Diagnostic")
+    lsp_map("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end, "Previous Diagnostic")
+    lsp_map("n", "]d", function() vim.diagnostic.jump({ count = 1, float = true }) end, "Next Diagnostic")
+    lsp_map(
+      "n",
+      "[e",
+      function() vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR, float = true }) end,
+      "Previous Error"
+    )
+    lsp_map(
+      "n",
+      "]e",
+      function() vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR, float = true }) end,
+      "Next Error"
+    )
+    lsp_map("n", "[D", function() vim.diagnostic.jump({ count = -math.huge, float = true }) end, "First Diagnostic")
+    lsp_map("n", "]D", function() vim.diagnostic.jump({ count = math.huge, float = true }) end, "Last Diagnostic")
   end,
 })
 
@@ -161,6 +152,7 @@ autocmd("LspAttach", {
 
 local treesitter_filetypes = {
   "astro",
+  "bash",
   "c",
   "css",
   "dockerfile",
@@ -173,6 +165,7 @@ local treesitter_filetypes = {
   "markdown",
   "nix",
   "rust",
+  "sh",
   "toml",
   "typescript",
   "typescriptreact",
@@ -183,7 +176,5 @@ local treesitter_filetypes = {
 autocmd("FileType", {
   pattern = treesitter_filetypes,
   desc = "Enable treesitter for supported filetypes",
-  callback = function()
-    vim.treesitter.start()
-  end,
+  callback = function() vim.treesitter.start() end,
 })

@@ -59,6 +59,7 @@ for i, kind in ipairs(completion_kinds) do
 end
 
 local servers = {
+  "bash",
   "biome",
   "go",
   "just",

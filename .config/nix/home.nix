@@ -9,7 +9,6 @@
   home.homeDirectory = "/home/erik";
   home.stateVersion = "25.05";
   home.packages = [
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
     pkgs.bat
     pkgs.delta
     pkgs.direnv
@@ -22,6 +21,7 @@
     pkgs.lazygit
     pkgs.lmstudio
     pkgs.neovim
+    pkgs.nerd-fonts.martian-mono
     pkgs.ripgrep
     pkgs.starship
     pkgs.tree-sitter

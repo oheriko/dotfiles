@@ -30,6 +30,7 @@ local parsers = {
   "vue",
 
   -- Systems
+  "bash",
   "c",
   "cpp",
   "go",
@@ -41,7 +42,6 @@ local parsers = {
   "zig",
 
   -- Config & Data
-  "bash",
   "dockerfile",
   "git_config",
   "git_rebase",
