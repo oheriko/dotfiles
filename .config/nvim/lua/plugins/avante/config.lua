@@ -12,6 +12,12 @@ return {
     provider = "fzf_lua",
     provider_opts = {},
   },
+
+  -- Use blink.cmp for completions in Avante input
+  completion = {
+    provider = "blink.cmp",
+  },
+
   provider = "claude",
   providers = {
     ollama = {
@@ -83,7 +89,7 @@ return {
 
   -- Behavior settings
   behaviour = {
-    auto_suggestions = false, -- Prevent conflicts
+    auto_suggestions = false, -- Prevent conflicts with minuet
     auto_set_highlight_group = true,
     auto_set_keymaps = true,
     auto_apply_diff_after_generation = false,

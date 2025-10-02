@@ -30,6 +30,7 @@ return {
     codecompanion = { "codecompanion", "buffer" },
     markdown = { "buffer", "path", "snippets", "minuet" },
     gitcommit = { "buffer", "minuet" },
+    -- Don't specify AvanteInput - let Avante handle its own completions
   },
 
   providers = {

@@ -16,12 +16,6 @@ end
 
 -- Setup blink.cmp with modular config
 blink.setup({
-  -- Appearance settings
-  -- appearance = {
-  --   use_nvim_cmp_as_default = appearance.use_nvim_cmp_as_default,
-  --   nerd_font_variant = appearance.nerd_font_variant,
-  -- },
-
   -- Source configuration
   sources = sources,
 
@@ -60,12 +54,19 @@ keymaps.setup_utility_keymaps()
 -- ============================================================================
 -- AVANTE INTEGRATION
 -- ============================================================================
--- Disable blink.cmp in Avante input buffers to prevent conflicts
+
+-- Configure blink-cmp-avante for proper integration (optional, has no setup by default)
+-- The integration works through the sources configuration above
+local avante_ok = pcall(require, "blink-cmp-avante")
+if avante_ok then
+  utils.notify("blink-cmp-avante loaded successfully", vim.log.levels.DEBUG)
+end
+
+-- Ensure blink.cmp works correctly in Avante input buffers
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "AvanteInput",
   callback = function()
-    require("blink.cmp").setup({
-      enabled = function() return vim.bo.buftype ~= "prompt" end,
-    })
+    -- Keep blink.cmp enabled for Avante completions
+    -- The sources are already configured to show only Avante providers
   end,
 })

@@ -42,7 +42,7 @@ vim.pack.add({
   {
     name = "blink.cmp",
     src = "https://github.com/Saghen/blink.cmp",
-    version = "v1.7",
+    version = "v1.7.0",
     hooks = {
       post_checkout = function(plugin)
         vim.fn.system({
@@ -52,6 +52,11 @@ vim.pack.add({
         })
       end,
     },
+  },
+  {
+    name = "blink-cmp-avante",
+    src = "https://github.com/Kaiser-Yang/blink-cmp-avante",
+    version = "master",
   },
   {
     name = "trouble",
