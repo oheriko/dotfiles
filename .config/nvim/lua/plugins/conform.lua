@@ -33,7 +33,7 @@ conform.setup({
     lua = { "stylua" },
     sh = { "shfmt" },
     bash = { "shfmt" },
-    zsh = { "shfmt" },
+    -- zsh = { "shfmt" },
 
     -- Other
     just = { "just" },
@@ -44,5 +44,12 @@ conform.setup({
   format_on_save = {
     timeout_ms = 500,
     lsp_fallback = true,
+  },
+  formatters = {
+    shfmt = {
+      prepend_args = { "-i", "2" },
+      -- The base args are { "-filename", "$FILENAME" } so the final args will be
+      -- { "-i", "2", "-filename", "$FILENAME" }
+    },
   },
 })

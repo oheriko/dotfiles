@@ -85,7 +85,7 @@ bindkey '^Y' autosuggest-accept
 # ============================================================================
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND=
+export FZF_ALT_C_COMMAND=""
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --preview-window=right:50%'
 
 # ============================================================================
@@ -127,5 +127,8 @@ alias lg='eza -la --icons --git --header'
 # Git
 alias lz='lazygit'
 
-# Neovim
+# Zellij
+alias zj='zellij'
+
+# Avante
 alias avante='nvim -c "lua vim.defer_fn(function()require(\"avante.api\").zen_mode()end, 100)"'
