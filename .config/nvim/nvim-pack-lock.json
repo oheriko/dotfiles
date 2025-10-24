@@ -1,0 +1,64 @@
+{
+  "plugins": {
+    "avante": {
+      "version": "'main'"
+    },
+    "blink-cmp-avante": {
+      "version": "'master'"
+    },
+    "blink.cmp": {
+      "version": "'v1.7.0'"
+    },
+    "codecompanion.nvim": {
+      "version": "'main'"
+    },
+    "conform": {
+      "version": "'master'"
+    },
+    "devicons": {
+      "version": "'master'"
+    },
+    "fidget": {
+      "version": "'main'"
+    },
+    "friendly-snippets": {
+      "version": "'main'"
+    },
+    "fzf": {
+      "version": "'main'"
+    },
+    "img-clip.nvim": {
+      "version": "'main'"
+    },
+    "lualine": {
+      "version": "'master'"
+    },
+    "mcphub.nvim": {
+      "version": "'main'"
+    },
+    "minuet": {
+      "version": "'main'"
+    },
+    "nui": {
+      "version": "'main'"
+    },
+    "plenary": {
+      "version": "'master'"
+    },
+    "rendermarkdown": {
+      "version": "'main'"
+    },
+    "tokyonight": {
+      "version": "'main'"
+    },
+    "treesitter": {
+      "version": "'main'"
+    },
+    "trouble": {
+      "version": "'main'"
+    },
+    "yazi": {
+      "version": "'main'"
+    }
+  }
+}

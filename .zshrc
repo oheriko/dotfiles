@@ -126,6 +126,7 @@ alias lg='eza -la --icons --git --header'
 
 # Git
 alias lz='lazygit'
+alias dotfiles='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 
 # Zellij
 alias zj='zellij'
